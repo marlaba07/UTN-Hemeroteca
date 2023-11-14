@@ -1,11 +1,21 @@
 # depslib dependency file v1.0
-1699991271 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
+1699995155 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
 	"animaciones.h"
 
 1699991193 c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.h
 
-1699991316 source:c:\users\mariano\desktop\tpfinal-laboratorioii\main.c
+1699993757 source:c:\users\mariano\desktop\tpfinal-laboratorioii\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"animaciones.h"
+	"MenuPrincipal.h"
+
+1699992246 c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.h
+
+1699995291 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"menuPrincipal.h"
 

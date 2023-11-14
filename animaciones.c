@@ -3,16 +3,16 @@
 void animacionCargando()
 {
     printf("\n\n\n                                                 Cargando");
-    systemix();
+    sleep();
     printf("\n\n\n                                                 Cargando.");
-    systemix();
+    sleep();
     printf("\n\n\n                                                 Cargando..");
-    systemix();
+    sleep();
     printf("\n\n\n                                                 Cargando...");
-    systemix();
+    sleep();
 }
 
-void systemix()
+void sleep()
 {
     Sleep(300);
     system("cls");

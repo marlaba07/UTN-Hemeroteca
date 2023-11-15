@@ -3,5 +3,6 @@
 
 void systemix();
 void inicio();
+void despedida();
 
-#endif // MENUPRINCIPAL_H_INCLUDED
+#endif

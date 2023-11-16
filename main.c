@@ -3,7 +3,8 @@
 #include <string.h>
 
 #include "animaciones.h"
-#include "MenuPrincipal.h"
+#include "menuPrincipal.h"
+#include "usuarios.h"
 
 int main()
 {

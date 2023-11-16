@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="animaciones.h" />
+		<Unit filename="archivos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="archivos.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -42,6 +46,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="menuPrincipal.h" />
+		<Unit filename="usuarios.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="usuarios.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

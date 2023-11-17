@@ -5,6 +5,7 @@
 #include "animaciones.h"
 #include "menuPrincipal.h"
 #include "usuarios.h"
+#include "archivos.h"
 
 int main()
 {

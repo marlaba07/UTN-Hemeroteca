@@ -23,16 +23,24 @@ typedef struct
 
 typedef struct
 {
-    // Hice la lista de usuarios como lista simple pero podría hacerse como lista doble qsya
-    Usuario datosLogin;
-    struct nodoListaUsuario* sig;
-} nodoListaUsuario;
-
-typedef struct
-{
     Historial registros;
     struct nodoHistorial* sig;
     struct nodoHistorial* ant;
 } nodoHistorial;    // Deberian pasarse informacion relevante como libros, o lo que sea que se quiera guardar en el historial.
+
+typedef struct
+{
+    // Hice la lista de usuarios como lista simple pero podría hacerse como lista doble qsya
+    Usuario datosLogin;
+    nodoHistorial* listaHistorial;
+    struct nodoListaUsuario* sig;
+} nodoListaUsuario;
+
+nodoListaUsuario* inicListaUsuario();
+nodoListaUsuario* crearNodoUsuario(Usuario dato);
+nodoListaUsuario* agregarPrincipioUsuario(nodoListaUsuario* lista, nodoListaUsuario* nuevoNodo);
+nodoListaUsuario* cargarUsuario(char nombreArchivo[30], nodoListaUsuario* lista);
+nodoListaUsuario* altaUsuario(nodoListaUsuario* lista, Usuario dato);
+nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id);
 
 #endif

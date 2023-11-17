@@ -3,9 +3,6 @@
 #include <string.h>
 
 #include "animaciones.h"
-#include "menuPrincipal.h"
-#include "usuarios.h"
-#include "archivos.h"
 
 void animacionCargando()
 {

@@ -7,9 +7,13 @@
 #include "usuarios.h"
 #include "archivos.h"
 
+// Constantes para los archivos
+const char archivoUsuarios[] = "Usuarios.bin";
+
 int main()
 {
     animacionCargando();
-    menuPrincipal();
+    menuPrincipal(archivoUsuarios);
+
     return 0;
 }

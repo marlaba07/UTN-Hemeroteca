@@ -11,15 +11,19 @@ Usuario usuario()
 {
     Usuario aux;
 
-    printf("Ingresar nombre completo: \n");
+    printf("Ingresar nombre completo: ");
     fflush(stdin);
     gets(aux.nombreCompleto);
 
-    printf("Ingresar e-mail: \n");
+    puts("");
+
+    printf("Ingresar e-mail: ");
     fflush(stdin);
     gets(aux.mail);
 
-    printf("Ingresar contrasenia: \n");
+    puts("");
+
+    printf("Ingresar contrasenia: ");
     fflush(stdin);
     gets(aux.contrasenia);
 
@@ -41,14 +45,18 @@ void cargarArchivoUsuarios(char nombreArchivo[20])
             // ID autoincremental
             fseek(archivo, 0, SEEK_END);
             int cant = ftell(archivo) / sizeof(Usuario);
-            aux.id = cant;
+            aux.id = cant + 1;
 
             fseek(archivo, 0, SEEK_SET);
             fwrite(&aux, sizeof(Usuario), 1, archivo);
 
+            puts("");
+
             printf("Desea seguir cargando? (s/n): ");
             fflush(stdin);
             scanf("%c", &seguir);
+
+            puts("");
         }
 
         fclose(archivo);
@@ -77,27 +85,8 @@ void mostrarUnUsuario(Usuario dato)
     printf("\n ------------------------------- \n");
     printf(" ID: %d \n", dato.id);
     printf(" Nombre y apellido: %s \n", dato.nombreCompleto);
-    printf(" E-mail: %s \n", dato.mail);
+    printf(" E-mail: %s ", dato.mail);
     printf("\n ------------------------------- \n");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

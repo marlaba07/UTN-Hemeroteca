@@ -4,5 +4,6 @@
 void systemix();
 void inicio();
 void despedida();
+void defaulT();
 
 #endif

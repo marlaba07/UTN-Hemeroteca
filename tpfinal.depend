@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1700194311 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
+1700231630 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"animaciones.h"
 
-1699991193 c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.h
+1700231569 c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.h
 
 1700193267 source:c:\users\mariano\desktop\tpfinal-laboratorioii\main.c
 	<stdio.h>
@@ -18,7 +18,7 @@
 
 1700193868 c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.h
 
-1700194379 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.c
+1700231764 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.c
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
@@ -29,7 +29,7 @@
 
 1700187522 c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.h
 
-1700193580 source:c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.c
+1700194750 source:c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

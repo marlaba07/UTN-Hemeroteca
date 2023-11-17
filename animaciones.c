@@ -21,3 +21,16 @@ void sleep()
     Sleep(300);
     system("cls");
 }
+
+void registroExitoso()
+{
+    system("cls");
+    printf("\n\n\n");
+    printf("                                           Usted se registro con exito! \n");
+    Sleep(1500);
+    system("cls");
+    animacionCargando();
+}
+
+
+

@@ -34,11 +34,16 @@ void menuPrincipal(char archivoUsuarios[])
             cargarArchivoUsuarios(archivoUsuarios); // El usuario los carga en el archivo
             mostrarArchivoUsuarios(archivoUsuarios);   // (Mostramos para verificar que se cargan) - Testeo
             listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);  // Y del archivo que crea, los pasa a la lista de usuarios
+            registroExitoso();
+            main();
             break;
         case 3:
             // Si el usuario ingresa la opción 3, sale del programa.
             despedida();
             break;
+        case 99:
+            // Podría ser una opcion secreta que no aparezca en el sistema, para que el admin se logee y haga la funcionalidad de admin.
+            // [Chequear con el grupo]
         default:
             defaulT();
     }

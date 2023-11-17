@@ -2,5 +2,7 @@
 #define ANIMACIONES_H_INCLUDED
 
 void animacionCargando();
+void registroExitoso();
+void sleep();
 
 #endif

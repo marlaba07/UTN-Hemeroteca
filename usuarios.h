@@ -42,5 +42,7 @@ nodoListaUsuario* agregarPrincipioUsuario(nodoListaUsuario* lista, nodoListaUsua
 nodoListaUsuario* cargarUsuario(char nombreArchivo[30], nodoListaUsuario* lista);
 nodoListaUsuario* altaUsuario(nodoListaUsuario* lista, Usuario dato);
 nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id);
+nodoListaUsuario* buscarUsuarioPorEmail(nodoListaUsuario* lista, char correo[30]);
+nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* lista, char archivoUsuarios[]);
 
 #endif

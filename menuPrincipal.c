@@ -9,11 +9,15 @@
 
 #include "menuPrincipal.h"
 #include "usuarios.h"
+#include "menuUsuario.h"
 
 void menuPrincipal(char archivoUsuarios[])
 {
-    int opcion;
+    char email[30], contra[30];
+    int opcion, volver;
     nodoListaUsuario* listaUsuarios = inicListaUsuario();
+    nodoListaUsuario* usuarioEncontrado = NULL;
+
     inicio();
 
     printf("Ingresar una opcion: ");
@@ -23,29 +27,70 @@ void menuPrincipal(char archivoUsuarios[])
 
     switch(opcion)
     {
-        case 1:
-            // Si el usuario ingresa la opción 1, ingresa.
-            // Acá habría que hacer las funciones para buscar en la lista de usuarios si existe, sino existe, que aparezca un error. Si existe que ingrese.
-            printf("Ha seleccionado la opcion 1.\n");
-            break;
-        case 2:
-            // Si el usuario ingresa la opción 2, crea su cuenta.
-            printf(" ---- REGISTRO ---- \n\n");
-            cargarArchivoUsuarios(archivoUsuarios); // El usuario los carga en el archivo
-            mostrarArchivoUsuarios(archivoUsuarios);   // (Mostramos para verificar que se cargan) - Testeo
-            listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);  // Y del archivo que crea, los pasa a la lista de usuarios
-            registroExitoso();
-            main();
-            break;
-        case 3:
-            // Si el usuario ingresa la opción 3, sale del programa.
-            despedida();
-            break;
-        case 99:
-            // Podría ser una opcion secreta que no aparezca en el sistema, para que el admin se logee y haga la funcionalidad de admin.
-            // [Chequear con el grupo]
-        default:
-            defaulT();
+    case 1:
+        // Si el usuario ingresa la opción 1, ingresa.
+        printf(" ---- LOGIN ---- \n\n");
+        printf("\nIngrese su mail: ");
+        fflush(stdin);
+        gets(email);
+
+        listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
+        usuarioEncontrado = buscarUsuarioPorEmail(listaUsuarios, email);
+        if(usuarioEncontrado != NULL)
+        {
+            for( int i=0; i<3; i++ )
+            {
+                printf("\nIngrese su contrase%ca\n%i intento de 3\n", 164, i+1); // 164 = ñ
+                fflush(stdin);
+                gets(contra);
+
+                if( strcmpi(usuarioEncontrado->datosLogin.contrasenia, contra) == 0 )
+                {
+                    animacionCargando();
+                    listaUsuarios = menuUsuario(usuarioEncontrado, listaUsuarios, archivoUsuarios);
+                    i = 3;
+                }
+                else
+                {
+                    if(i != 2)
+                    {
+                        system("cls");
+                        printf("Constrase%ca incorrecta, ingrese 1 para ingresar la constrase%ca nuevamente. \n", 164, 164);
+                        scanf("%i", &volver);
+                    }
+                    else if(i == 2)
+                    {
+                        system("cls");
+                        printf("Superaste el limites de intentos, seras redireccionado al menu principal... \n");
+                        animacionCargando();
+                    }
+                    if(volver == 1)
+                        system("cls");
+                }
+            }
+        }
+        else
+            errorRegistro();
+
+        break;
+    case 2:
+        // Si el usuario ingresa la opción 2, crea su cuenta.
+        printf(" ---- REGISTRO ---- \n\n");
+        cargarArchivoUsuarios(archivoUsuarios);
+        listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
+        registroExitoso();
+        main();
+        break;
+    case 3:
+        // Si el usuario ingresa la opción 3, sale del programa.
+        despedida();
+        break;
+    case 99:
+        // Podría ser una opcion secreta que no aparezca en el sistema, para que el admin se logee y haga la funcionalidad de admin.
+        printf("Login ADM");
+        break;
+    default:
+        defaulT();
     }
 }
 

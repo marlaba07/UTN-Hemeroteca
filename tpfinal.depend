@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1700231630 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
+1700286196 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"animaciones.h"
 
-1700231569 c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.h
+1700287265 c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.h
 
-1700193267 source:c:\users\mariano\desktop\tpfinal-laboratorioii\main.c
+1700282535 source:c:\users\mariano\desktop\tpfinal-laboratorioii\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -16,16 +16,17 @@
 	"usuarios.h"
 	"archivos.h"
 
-1700193868 c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.h
+1700282535 c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.h
 
-1700231764 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.c
+1700287120 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.c
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
 	"menuPrincipal.h"
 	"usuarios.h"
+	"menuUsuario.h"
 
-1700190340 c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.h
+1700286023 c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.h
 
 1700187522 c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.h
 
@@ -36,10 +37,22 @@
 	"usuarios.h"
 	"archivos.h"
 
-1700192481 source:c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.c
+1700287045 source:c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	"usuarios.h"
+	"archivos.h"
+
+1700286018 c:\users\mariano\desktop\tpfinal-laboratorioii\menuusuario.h
+
+1700285965 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuusuario.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
 	"usuarios.h"
 	"archivos.h"
 

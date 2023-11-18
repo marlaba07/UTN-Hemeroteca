@@ -70,14 +70,11 @@ nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id)
     nodoListaUsuario* seguidora = lista;
     nodoListaUsuario* usuarioEncontrado = NULL;
 
-    int flag = 0;
-
-    while(seguidora!= NULL && flag == 0)
+    while(seguidora!= NULL)
     {
         if(seguidora->datosLogin.id == id)
         {
             usuarioEncontrado = seguidora;
-            flag = 1;
         }
 
         seguidora = seguidora->sig;
@@ -85,5 +82,38 @@ nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id)
 
     return usuarioEncontrado;
 }
+
+nodoListaUsuario* buscarUsuarioPorEmail(nodoListaUsuario* lista, char correo[30])
+{
+    nodoListaUsuario* seguidora = lista;
+    nodoListaUsuario* usuarioEncontrado = NULL;
+
+    while(seguidora!= NULL )
+    {
+        if( strcmp(seguidora->datosLogin.mail, correo) == 0 )
+        {
+            usuarioEncontrado = seguidora;
+        }
+
+        seguidora = seguidora->sig;
+    }
+
+    return usuarioEncontrado;
+}
+
+void mostrarEstructura(nodoListaUsuario* lista)
+{
+    if(lista != NULL)
+    {
+        mostrarUnUsuario(lista->datosLogin);
+        mostrarEstructura(lista->sig);
+    }
+}
+
+
+
+
+
+
 
 

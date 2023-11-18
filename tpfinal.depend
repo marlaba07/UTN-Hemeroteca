@@ -43,3 +43,47 @@
 	"usuarios.h"
 	"archivos.h"
 
+1700259572 source:c:\users\sasse\desktop\utn-hemeroteca\archivos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"usuarios.h"
+	"archivos.h"
+
+1700259572 c:\users\sasse\desktop\utn-hemeroteca\usuarios.h
+
+1700259572 c:\users\sasse\desktop\utn-hemeroteca\archivos.h
+
+1700259572 source:c:\users\sasse\desktop\utn-hemeroteca\usuarios.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"usuarios.h"
+	"archivos.h"
+
+1700268482 source:c:\users\sasse\desktop\utn-hemeroteca\animaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+
+1700268466 c:\users\sasse\desktop\utn-hemeroteca\animaciones.h
+
+1700268629 source:c:\users\sasse\desktop\utn-hemeroteca\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+	"menuPrincipal.h"
+	"usuarios.h"
+	"archivos.h"
+
+1700268473 c:\users\sasse\desktop\utn-hemeroteca\menuprincipal.h
+
+1700270178 source:c:\users\sasse\desktop\utn-hemeroteca\menuprincipal.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"menuPrincipal.h"
+	"usuarios.h"
+

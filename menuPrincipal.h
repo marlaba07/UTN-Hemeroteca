@@ -6,4 +6,10 @@ void inicio();
 void despedida();
 void defaulT();
 
+void menuPrincipal(char archivoUsuarios[]);
+int logo();
+void defaulT();
+void inicio();
+void despedida();
+
 #endif

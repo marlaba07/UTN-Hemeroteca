@@ -16,6 +16,7 @@ void animacionCargando()
     sleep();
 }
 
+
 void sleep()
 {
     Sleep(300);
@@ -31,6 +32,3 @@ void registroExitoso()
     system("cls");
     animacionCargando();
 }
-
-
-

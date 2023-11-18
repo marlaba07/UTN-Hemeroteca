@@ -26,8 +26,11 @@ void registroExitoso()
 {
     system("cls");
     printf("\n\n\n");
-    printf("                                           Usted se ha registrado con exito! \n");
+    printf("                                           Usted se registro con exito! \n");
     Sleep(1500);
     system("cls");
     animacionCargando();
 }
+
+
+

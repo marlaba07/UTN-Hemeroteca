@@ -13,8 +13,6 @@ const char archivoUsuarios[] = "Usuarios.bin";
 int main()
 {
     animacionCargando();
-    logo();
-    system("pause");
     menuPrincipal(archivoUsuarios);
 
     return 0;

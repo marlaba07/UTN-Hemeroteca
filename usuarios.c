@@ -2,8 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "animaciones.h"
+#include "menuPrincipal.h"
+#include "menuAdministrador.h"
+#include "menuUsuario.h"
 #include "usuarios.h"
 #include "archivos.h"
+#include "publicacionMusical.h"
 
 // --- |LISTA DE USUARIOS| ---
 
@@ -53,7 +58,6 @@ nodoListaUsuario* cargarUsuario(char nombreArchivo[30], nodoListaUsuario* lista)
 
 nodoListaUsuario* altaUsuario(nodoListaUsuario* lista, Usuario dato)
 {
-    // Solo estoy dando de alta el usuario.
     nodoListaUsuario* usuarioEncontrado = buscarUsuario(lista, dato.id);
 
     if(usuarioEncontrado == NULL)
@@ -110,8 +114,52 @@ void mostrarEstructura(nodoListaUsuario* lista)
     }
 }
 
+// --- |LISTA HISTORIAL DE USUARIO| ---
+/*
 
+nodoHistorial* inicListaHistorial()
+{
+    return NULL;
+}
 
+nodoHistorial* crearNodoHistorial(stRegistro dato)
+{
+    nodoHistorial* aux = (nodoHistorial*)malloc(sizeof(nodoHistorial));
+    aux->registro = dato;
+    aux->sig = NULL;
+    aux->ant = NULL;
+
+    return aux;
+}
+
+nodoHistorial* buscarUltimo(nodoHistorial* lista)
+{
+    nodoHistorial* seg = lista;
+    if(seg)
+    {
+        while(seg->sig != NULL)
+            seg = seg->sig;
+    }
+
+    return seg;
+}
+
+nodoHistorial* agregarFinalHistorial(nodoHistorial* lista, nodoHistorial* nuevoNodo)
+{
+    if(lista == NULL)
+    {
+        lista = nuevoNodo;
+    }
+    else
+    {
+        nodoHistorial* ultimo = buscarUltimo(lista);
+        ultimo->sig = nuevoNodo;
+        nuevoNodo->ant = ultimo;
+    }
+
+    return lista;
+}
+*/
 
 
 

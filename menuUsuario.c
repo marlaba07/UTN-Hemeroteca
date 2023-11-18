@@ -4,15 +4,18 @@
 
 #include "animaciones.h"
 #include "menuPrincipal.h"
+#include "menuAdministrador.h"
 #include "menuUsuario.h"
 #include "usuarios.h"
 #include "archivos.h"
+#include "publicacionMusical.h"
 
 nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* lista, char archivoUsuarios[])
 {
     int opcion;
+    //nodoHistorial* historial = inicListaHistorial();
 
-    while(opcion != 5)
+    while(opcion != 18)
     {
         system("cls");
         bienvenidaUsuario();
@@ -20,12 +23,15 @@ nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsua
 
         printf("Seleccione una opcion del menu: ");
         scanf("%d", &opcion);
+        system("cls");
 
         do
         {
             switch(opcion)
             {
             case 1:
+                cargarArchivoRegistro(archivoHistorial);
+
                 break;
             case 2:
                 break;

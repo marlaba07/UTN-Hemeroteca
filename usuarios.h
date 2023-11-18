@@ -4,8 +4,6 @@
 typedef struct
 {
     int id;
-    int categoria; //1 - Personal, 2 - Usuario normal. Dependiendo del tipo de usuario, se concederan unos u otros permisos. [Preguntar si es necesario]
-    // Para mi en categoria deberiamos decir que un solo usuario en particular es de categoria 1 [personal/administrador] y el resto son de usuario 2.
     char nombreCompleto[30];
     char mail[50];
     char contrasenia[8];
@@ -13,24 +11,13 @@ typedef struct
 
 typedef struct
 {
-    // Preguntar que se tiene que guardar en el historial.
-    // [Agregue campos por agregar, pueden ser otros tranquilamente]
-    int idLibro;
-    char nombreLibro[20];
-    char genero[20];
-    char descripcion[100];
-} Historial;
-
-typedef struct
-{
-    Historial registros;
+    char nombre[30];
     struct nodoHistorial* sig;
     struct nodoHistorial* ant;
-} nodoHistorial;    // Deberian pasarse informacion relevante como libros, o lo que sea que se quiera guardar en el historial.
+} nodoHistorial;
 
 typedef struct
 {
-    // Hice la lista de usuarios como lista simple pero podría hacerse como lista doble qsya
     Usuario datosLogin;
     nodoHistorial* listaHistorial;
     struct nodoListaUsuario* sig;

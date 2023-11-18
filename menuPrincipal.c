@@ -7,17 +7,19 @@
 #define NEGRO_T        "\x1b[30m"
 #define ROJO_F     "\x1b[41m"
 
+#include "animaciones.h"
 #include "menuPrincipal.h"
-#include "usuarios.h"
+#include "menuAdministrador.h"
 #include "menuUsuario.h"
+#include "usuarios.h"
+#include "archivos.h"
+#include "publicacionMusical.h"
 
 void menuPrincipal(char archivoUsuarios[])
 {
     char email[30], contra[30];
+    char contraseniaAdmin[] = "admin";
     int opcion, volver;
-
-    char emailAdmin = "admin@admin.com"
-    int contraAdmin = 123;
 
     nodoListaUsuario* listaUsuarios = inicListaUsuario();
     nodoListaUsuario* usuarioEncontrado = NULL;
@@ -48,7 +50,7 @@ void menuPrincipal(char archivoUsuarios[])
                 fflush(stdin);
                 gets(contra);
 
-                if( strcmpi(usuarioEncontrado->datosLogin.contrasenia, contra) == 0 )
+                if( strcmp(usuarioEncontrado->datosLogin.contrasenia, contra) == 0 )
                 {
                     animacionCargando();
                     listaUsuarios = menuUsuario(usuarioEncontrado, listaUsuarios, archivoUsuarios);
@@ -98,14 +100,21 @@ void menuPrincipal(char archivoUsuarios[])
         fflush(stdin);
         gets(contra);
 
-        if(strcmp(email, emailAdmin) == 0 && contra == contraAdmin)
+        listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
+        usuarioEncontrado = buscarUsuarioPorEmail(listaUsuarios, email); // admin@adm.com - admin
+        if(usuarioEncontrado != NULL)
         {
-
+            if( strcmp(usuarioEncontrado->datosLogin.contrasenia, contraseniaAdmin) == 0 )
+            {
+                animacionCargando();
+                //listaUsers = menuDeAdministradores(usuarioEncontrado, listaUsuarios, archivoUsuarios);
+            }
         }
 
         break;
     default:
         defaulT();
+        break;
     }
 }
 

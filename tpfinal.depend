@@ -1,58 +1,111 @@
 # depslib dependency file v1.0
-1700286196 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
+1700320939 source:c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"animaciones.h"
+	"menuPrincipal.h"
+	"menuAdministrador.h"
+	"menuUsuario.h"
+	"usuarios.h"
+	"archivos.h"
+	"publicacionMusical.h"
 
 1700287265 c:\users\mariano\desktop\tpfinal-laboratorioii\animaciones.h
 
-1700282535 source:c:\users\mariano\desktop\tpfinal-laboratorioii\main.c
+1700328241 source:c:\users\mariano\desktop\tpfinal-laboratorioii\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"animaciones.h"
 	"menuPrincipal.h"
+	"menuAdministrador.h"
+	"menuUsuario.h"
 	"usuarios.h"
 	"archivos.h"
+	"publicacionMusical.h"
 
 1700282535 c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.h
 
-1700287120 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.c
+1700321040 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuprincipal.c
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
+	"animaciones.h"
 	"menuPrincipal.h"
-	"usuarios.h"
+	"menuAdministrador.h"
 	"menuUsuario.h"
-
-1700286023 c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.h
-
-1700187522 c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.h
-
-1700194750 source:c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
 	"usuarios.h"
 	"archivos.h"
+	"publicacionMusical.h"
 
-1700287045 source:c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	"usuarios.h"
-	"archivos.h"
+1700328413 c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.h
 
-1700286018 c:\users\mariano\desktop\tpfinal-laboratorioii\menuusuario.h
+1700320994 c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.h
 
-1700285965 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuusuario.c
+1700326947 source:c:\users\mariano\desktop\tpfinal-laboratorioii\archivos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"animaciones.h"
 	"menuPrincipal.h"
+	"menuAdministrador.h"
 	"menuUsuario.h"
 	"usuarios.h"
 	"archivos.h"
+	"publicacionMusical.h"
+
+1700328433 source:c:\users\mariano\desktop\tpfinal-laboratorioii\usuarios.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+	"menuPrincipal.h"
+	"menuAdministrador.h"
+	"menuUsuario.h"
+	"usuarios.h"
+	"archivos.h"
+	"publicacionMusical.h"
+
+1700286018 c:\users\mariano\desktop\tpfinal-laboratorioii\menuusuario.h
+
+1700328439 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuusuario.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+	"menuPrincipal.h"
+	"menuAdministrador.h"
+	"menuUsuario.h"
+	"usuarios.h"
+	"archivos.h"
+	"publicacionMusical.h"
+
+1700321033 source:c:\users\mariano\desktop\tpfinal-laboratorioii\menuadministrador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+	"menuPrincipal.h"
+	"menuAdministrador.h"
+	"menuUsuario.h"
+	"usuarios.h"
+	"archivos.h"
+	"publicacionMusical.h"
+
+1700288174 c:\users\mariano\desktop\tpfinal-laboratorioii\menuadministrador.h
+
+1700328339 c:\users\mariano\desktop\tpfinal-laboratorioii\publicacionmusical.h
+
+1700319992 source:c:\users\mariano\desktop\tpfinal-laboratorioii\publicacionmusical.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+	"menuPrincipal.h"
+	"menuAdministrador.h"
+	"menuUsuario.h"
+	"usuarios.h"
+	"archivos.h"
+	"publicacionMusical.h"
 

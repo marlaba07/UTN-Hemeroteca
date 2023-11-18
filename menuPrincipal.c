@@ -15,6 +15,10 @@ void menuPrincipal(char archivoUsuarios[])
 {
     char email[30], contra[30];
     int opcion, volver;
+
+    char emailAdmin = "admin@admin.com"
+    int contraAdmin = 123;
+
     nodoListaUsuario* listaUsuarios = inicListaUsuario();
     nodoListaUsuario* usuarioEncontrado = NULL;
 
@@ -86,8 +90,19 @@ void menuPrincipal(char archivoUsuarios[])
         despedida();
         break;
     case 99:
-        // Podría ser una opcion secreta que no aparezca en el sistema, para que el admin se logee y haga la funcionalidad de admin.
-        printf("Login ADM");
+        printf("\nIngrese mail del administrador: ");
+        fflush(stdin);
+        gets(email);
+
+        printf("\nIngrese constrase%ca del administrador: ", 164);
+        fflush(stdin);
+        gets(contra);
+
+        if(strcmp(email, emailAdmin) == 0 && contra == contraAdmin)
+        {
+
+        }
+
         break;
     default:
         defaulT();

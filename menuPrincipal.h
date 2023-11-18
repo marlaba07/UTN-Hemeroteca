@@ -2,13 +2,9 @@
 #define MENUPRINCIPAL_H_INCLUDED
 
 void systemix();
-void inicio();
-void despedida();
-void defaulT();
-
 void menuPrincipal(char archivoUsuarios[]);
 int logo();
-void defaulT();
+void defaultCase();
 void inicio();
 void despedida();
 

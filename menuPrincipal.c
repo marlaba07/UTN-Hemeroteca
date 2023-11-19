@@ -143,4 +143,5 @@ void despedida()
     printf("\n\n\n                                                  "ROJO_F"VUELVA PRONTO!\n\n"RESET_COLOR);
     printf("                                            "ROJO_F"PRESIONE UNA TECLA PARA SALIR\n\n"RESET_COLOR);
     printf("\n\n\n                                                    ");
+    inicio();
 }

@@ -11,8 +11,16 @@ typedef struct
     char biografia[100];
 } stRegistro;
 
+typedef struct
+{
+    stRegistro registro;
+    int idRegistro;
+    char fuente[30];
+    char descripcion[100];
+    char etiquetado[20];
+    int prestado;   // 1 (esta prestado) - 0 (no esta prestado)
+} registro;
 
-stRegistro registroMusical();
-void mostrarUnRegistro(stRegistro dato);
+
 
 #endif

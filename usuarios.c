@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "publicacionMusical.h"
 #include "animaciones.h"
 #include "menuPrincipal.h"
 #include "menuAdministrador.h"
 #include "menuUsuario.h"
 #include "usuarios.h"
 #include "archivos.h"
-#include "publicacionMusical.h"
+
 
 // --- |LISTA DE USUARIOS| ---
 
@@ -115,17 +116,16 @@ void mostrarEstructura(nodoListaUsuario* lista)
 }
 
 // --- |LISTA HISTORIAL DE USUARIO| ---
-/*
 
 nodoHistorial* inicListaHistorial()
 {
     return NULL;
 }
 
-nodoHistorial* crearNodoHistorial(stRegistro dato)
+nodoHistorial* crearNodoHistorial(registro dato)
 {
     nodoHistorial* aux = (nodoHistorial*)malloc(sizeof(nodoHistorial));
-    aux->registro = dato;
+    aux->dato = dato;
     aux->sig = NULL;
     aux->ant = NULL;
 
@@ -159,7 +159,7 @@ nodoHistorial* agregarFinalHistorial(nodoHistorial* lista, nodoHistorial* nuevoN
 
     return lista;
 }
-*/
+
 
 
 

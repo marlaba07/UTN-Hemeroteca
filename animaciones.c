@@ -73,6 +73,7 @@ void errorRegistro()
     Sleep(1500);
     system("cls");
     animacionCargando();
+    inicio();
 }
 
 void opcionesMenuUsuario()

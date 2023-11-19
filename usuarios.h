@@ -1,5 +1,6 @@
 #ifndef USUARIOS_H_INCLUDED
 #define USUARIOS_H_INCLUDED
+#include "publicacionMusical.h"
 
 typedef struct
 {
@@ -11,7 +12,7 @@ typedef struct
 
 typedef struct
 {
-    char nombre[30];
+    registro dato;
     struct nodoHistorial* sig;
     struct nodoHistorial* ant;
 } nodoHistorial;

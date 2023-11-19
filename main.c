@@ -13,13 +13,13 @@
 // Constantes para los archivos
 const char archivoUsuarios[] = "Usuarios.bin";
 const char archivoRegistros[] = "Registros.bin";
-const char archivoHistorial[] = "Historial.bin";
+const char archivoPublicacion[] = "Publicacion.bin";
 
 int main()
 {
-    cargarArchivoRegistro(archivoRegistros);
-    mostrarArchivoRegistro(archivoRegistros);
-    system("pause");
+    //cargarArchivoRegistro(archivoRegistros);
+    //mostrarArchivoRegistro(archivoRegistros);
+    //system("pause");
     animacionCargando();
     menuPrincipal(archivoUsuarios);
 

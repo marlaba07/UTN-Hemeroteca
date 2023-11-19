@@ -96,7 +96,124 @@ void mostrarUnUsuario(Usuario dato)
 
 // --- PUBLICACION MUSICAL ---
 
-stRegistro registroMusical()
+registro registroMusical()
+{
+    registro aux;
+
+    printf(" ---- De la publicacion ---- \n");
+    printf("Ingresar titulo: ");
+    fflush(stdin);
+    gets(aux.registro.titulo);
+
+    printf("Ingresar fecha de publicacion: ");
+    fflush(stdin);
+    gets(aux.registro.fechaPublicacion);
+
+    printf("Ingresar genero: ");
+    fflush(stdin);
+    gets(aux.registro.genero);
+
+    puts("");
+
+    printf(" ---- Del autor ---- \n");
+    printf("\nIngresar nombre completo del autor: ");
+    fflush(stdin);
+    gets(aux.registro.nombreYapellidoAutor);
+
+    printf("\nIngresar nacionalidad del autor: ");
+    fflush(stdin);
+    gets(aux.registro.nacionalidad);
+
+    printf("\nIngresar una breve biografia del autor: ");
+    fflush(stdin);
+    gets(aux.registro.biografia);
+
+    puts("");
+
+    printf(" ---- Adicional ---- \n");
+    printf("\nFuente de informacion: ");
+    fflush(stdin);
+    gets(aux.fuente);
+
+    printf("\nBreve descripcion de la publicacion: ");
+    fflush(stdin);
+    gets(aux.descripcion);
+
+    printf("\nPalabra clave para facilitar la busqueda: ");
+    fflush(stdin);
+    gets(aux.etiquetado);
+
+    return aux;
+}
+
+void cargarArchivoPublicacion(char nombreArchivo[20])
+{
+    registro aux;
+    char seguir = 's';
+
+    FILE* archivo = fopen(nombreArchivo, "ab");
+    if(archivo)
+    {
+        while(seguir == 's')
+        {
+            aux = registroMusical();
+
+            // ID autoincremental
+            fseek(archivo, 0, SEEK_END);
+            int cant = ftell(archivo) / sizeof(registro);
+            aux.idRegistro = cant + 1;
+
+            fwrite(&aux, sizeof(registro), 1, archivo);
+
+            puts("");
+            printf("Desea seguir cargando? (s/n): ");
+            fflush(stdin);
+            scanf("%c", &seguir);
+            puts("");
+        }
+
+        fclose(archivo);
+    }
+    else
+        printf("No se pudo abrir elarchivo \n");
+}
+
+void mostrarArchivoPublicacion(char nombreArchivo[20])
+{
+    registro aux;
+    FILE* archivo = fopen(nombreArchivo, "rb");
+    if(archivo)
+    {
+        while(fread(&aux, sizeof(registro), 1, archivo) > 0)
+        {
+            mostrarUnaPublicacion(aux);
+        }
+
+        fclose(archivo);
+    }
+}
+
+void mostrarUnaPublicacion(registro dato)
+{
+    printf("\n ------------------------------- \n");
+    printf(" Titulo: %s \n", dato.registro.titulo);
+    printf(" Genero: %s \n", dato.registro.genero);
+    printf(" Fecha publicacion: %s \n", dato.registro.fechaPublicacion);
+    puts("");
+    printf(" Nombre completo autor: %s \n", dato.registro.nombreYapellidoAutor);
+    printf(" Nacionalidad: %s \n", dato.registro.nacionalidad);
+    printf(" Biografia: %s ", dato.registro.biografia);
+    puts("");
+    printf(" ID Registro: %d \n", dato.idRegistro );
+    printf(" Descripcion: %s \n", dato.descripcion );
+    printf(" Etiquetado: %s ", dato.etiquetado);
+    printf(" Fuenta de informacion: %s ", dato.fuente);
+    printf("\n ------------------------------- \n");
+}
+
+// --- REGISTRO GENERAL ---
+
+stRegistro registroGeneral()
 {
     stRegistro aux;
 
@@ -112,15 +229,17 @@ stRegistro registroMusical()
     fflush(stdin);
     gets(aux.fechaPublicacion);
 
-    printf("\nIngresar nombre completo del autor: ");
+    printf("\n");
+
+    printf("Ingresar nombre completo del autor: ");
     fflush(stdin);
     gets(aux.nombreYapellidoAutor);
 
-    printf("Ingresar nacionalidad: ");
+    printf("Ingresar nacionalidad del autor: ");
     fflush(stdin);
     gets(aux.nacionalidad);
 
-    printf("Ingresar biografia: ");
+    printf("Ingresar una breve biografia del autor: ");
     fflush(stdin);
     gets(aux.biografia);
 
@@ -129,7 +248,7 @@ stRegistro registroMusical()
 
 void cargarArchivoRegistro(char nombreArchivo[20])
 {
-    stRegistro registro;
+    stRegistro aux;
     char seguir = 's';
 
     FILE* archivo = fopen(nombreArchivo, "ab");
@@ -137,9 +256,9 @@ void cargarArchivoRegistro(char nombreArchivo[20])
     {
         while(seguir == 's')
         {
-            registro = registroMusical();
+            aux = registroGeneral();
 
-            fwrite(&registro, sizeof(stRegistro), 1, archivo);
+            fwrite(&aux, sizeof(stRegistro), 1, archivo);
 
             puts("");
             printf("Desea seguir cargando? (s/n): ");
@@ -156,13 +275,13 @@ void cargarArchivoRegistro(char nombreArchivo[20])
 
 void mostrarArchivoRegistro(char nombreArchivo[20])
 {
-    stRegistro registro;
+    stRegistro aux;
     FILE* archivo = fopen(nombreArchivo, "rb");
     if(archivo)
     {
-        while(fread(&registro, sizeof(stRegistro), 1, archivo) > 0)
+        while(fread(&aux, sizeof(stRegistro), 1, archivo) > 0)
         {
-            mostrarUnRegistro(registro);
+            mostrarUnRegistro(aux);
         }
 
         fclose(archivo);
@@ -180,13 +299,6 @@ void mostrarUnRegistro(stRegistro dato)
     printf(" Biografia: %s ", dato.biografia);
     printf("\n ------------------------------- \n");
 }
-
-
-
-
-
-
-
 
 
 

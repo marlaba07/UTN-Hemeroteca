@@ -12,5 +12,7 @@ datosCadaPublicacion registroMusical();
 void cargarArchivoPublicacion(char nombreArchivo[20]);
 void mostrarUnaPublicacion(datosCadaPublicacion dato);
 void mostrarArchivoPublicacion(char nombreArchivo[20]);
+void actualizarInformacionPublicacion(char nombreArchivo[20]);
+int buscarRegistro(char nombreArchivo[20], char tituloBuscar[50]);
 
 #endif

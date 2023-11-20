@@ -106,7 +106,7 @@ void mostrarUnUsuario(Usuario dato)
 
 // --- PUBLICACION MUSICAL --- //
 
-datosCadaPublicacion pedirDatosRegistro(void)
+datosCadaPublicacion pedirDatosRegistro()
 {
     datosCadaPublicacion nuevoRegistro;
 
@@ -229,3 +229,102 @@ void mostrarArchivoPublicacion(char nombreArchivo[20])
         printf("Error: no se pudo abrir el archivo. \n");
     }
 }
+
+void actualizarInformacionPublicacion(char nombreArchivo[20])
+{
+    int opcion;
+    datosCadaPublicacion aux;
+    char tituloBuscar[50];
+
+    printf("Ingrese el titulo de la publicacion a actualizar: ");
+    fflush(stdin);
+    fgets(tituloBuscar, sizeof(tituloBuscar), stdin);
+
+    int posicion = buscarRegistro(nombreArchivo, tituloBuscar);     // Busca el registro en el archivo
+
+    if (posicion != -1)
+    {
+        FILE *archivo = fopen(nombreArchivo, "r+b");
+        if (archivo != NULL)
+        {
+            fseek(archivo, posicion * sizeof(datosCadaPublicacion), SEEK_SET);  // Mueve el puntero al inicio del registro a actualizar
+            fread(&aux, sizeof(datosCadaPublicacion), 1, archivo);              // Lee el registro actual
+
+            printf("\n\nQue informacion desea actualizar? \n");
+            printf("1. Titulo \n");
+            printf("2. Autor \n");
+            printf("3. Descripcion \n");
+            printf("Seleccione una opcion: ");
+            scanf("%d", &opcion);
+
+            switch (opcion)
+            {
+            case 1:
+                printf("Ingrese el nuevo titulo: ");
+                fflush(stdin);
+                fgets(aux.datosPublicacion.titulo, sizeof(aux.datosPublicacion.titulo), stdin);
+                //gets( aux.datosPublicacion.titulo );
+                break;
+            case 2:
+                printf("Ingrese la nueva descripcion: ");
+                fflush(stdin);
+                fgets(aux.datosAutor.nombreYapellido, sizeof(aux.datosAutor.nombreYapellido), stdin);
+                //gets( aux.datosPublicacion.descripcion );
+                break;
+            case 3:
+                printf("Ingrese el nuevo autor: ");
+                fflush(stdin);
+                fgets(aux.datosAutor.nombreYapellido, sizeof(aux.datosAutor.nombreYapellido), stdin);
+                //gets( aux.datosAutor.nombreYapellido );
+                break;
+            default:
+                printf("Opción no valida.\n");
+                break;
+            }
+
+            fseek(archivo, posicion * sizeof(datosCadaPublicacion), SEEK_SET);  // Mover el puntero al inicio del registro a actualizar en el archivo
+            fwrite(&aux, sizeof(datosCadaPublicacion), 1, archivo); // Escribir el registro actualizado en el archivo
+            fclose(archivo);
+
+            printf("Información de la publicación actualizada exitosamente. \n");
+        }
+        else
+        {
+            printf("Error: no se pudo abrir el archivo.\n");
+        }
+    }
+    else
+    {
+        printf("Publicacion no encontrada.\n");
+    }
+}
+
+int buscarRegistro(char nombreArchivo[20], char tituloBuscar[])
+{
+    datosCadaPublicacion aux;
+    int posicion = 0;
+    int flag = -1;
+
+    FILE *archivo = fopen(nombreArchivo, "rb");
+    if (archivo != NULL)
+    {
+        while (fread(&aux, sizeof(datosCadaPublicacion), 1, archivo) == 1)
+        {
+            if (strcmpi(aux.datosPublicacion.titulo, tituloBuscar) == 0)
+            {
+                flag = posicion;
+                break;
+            }
+
+            posicion++;
+        }
+
+        fclose(archivo);
+    }
+
+    return flag; // Retorna -1 si no se encontró el registro
+}
+
+
+
+

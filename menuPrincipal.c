@@ -104,20 +104,16 @@ void menuPrincipal(char archivoUsuarios[])
             }
         }
         else
+        {
             errorRegistro();
-
+            main();
+        }
         break;
     case 2:
         // Si el usuario ingresa la opcion 2, crea su cuenta.
         printf(" ---- REGISTRO ---- \n\n");
         cargarArchivoUsuarios(archivoUsuarios);
         listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
-        printf("Archivo: \n");
-        mostrarArchivoUsuarios(archivoUsuarios);
-        system("cls");
-        printf("Lista: \n");
-        mostrarEstructura(listaUsuarios);
-        system("cls");
         registroExitoso();
         main();
         break;

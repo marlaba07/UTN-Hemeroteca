@@ -136,7 +136,7 @@
 
 1700510494 c:\users\mariano\desktop\utn-hemeroteca\publicacionmusical.h
 
-1700510493 c:\users\mariano\desktop\utn-hemeroteca\archivos.h
+1700513528 c:\users\mariano\desktop\utn-hemeroteca\archivos.h
 
 1700511349 source:c:\users\mariano\desktop\utn-hemeroteca\menuadministrador.c
 	<stdio.h>
@@ -151,7 +151,7 @@
 	"publicacionMusical.h"
 	"arboles.h"
 
-1700510494 source:c:\users\mariano\desktop\utn-hemeroteca\menuprincipal.c
+1700513929 source:c:\users\mariano\desktop\utn-hemeroteca\menuprincipal.c
 	<string.h>
 	<stdio.h>
 	<stdlib.h>
@@ -163,7 +163,7 @@
 	"archivos.h"
 	"publicacionMusical.h"
 
-1700510494 source:c:\users\mariano\desktop\utn-hemeroteca\publicacionmusical.c
+1700512888 source:c:\users\mariano\desktop\utn-hemeroteca\publicacionmusical.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -187,7 +187,7 @@
 	"usuarios.h"
 	"archivos.h"
 
-1700510697 source:c:\users\mariano\desktop\utn-hemeroteca\archivos.c
+1700514796 source:c:\users\mariano\desktop\utn-hemeroteca\archivos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -214,7 +214,7 @@
 	"arboles.h"
 	"menuPrincipal.h"
 
-1700510494 source:c:\users\mariano\desktop\utn-hemeroteca\menuusuario.c
+1700513752 source:c:\users\mariano\desktop\utn-hemeroteca\menuusuario.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

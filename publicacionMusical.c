@@ -20,6 +20,7 @@ int esBisiesto(int anio)
 int ingresarDia()
 {
     int dia;
+
     do
     {
         scanf("%d", &dia);

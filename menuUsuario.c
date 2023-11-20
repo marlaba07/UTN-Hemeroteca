@@ -50,6 +50,12 @@ nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsua
         case 7:
             break;
         case 8:
+            actualizarInformacionPublicacion("Registros.bin");
+            listaPrincipal = archivo2ListaDeListas("Registros.bin", listaPrincipal);
+            system("pause");
+            system("cls");
+            printf("Lista modificada: \n");
+            recorrerYmostrarListaDeListas(listaPrincipal);
             break;
         case 9:
             break;

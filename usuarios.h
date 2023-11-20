@@ -7,30 +7,30 @@ typedef struct
     int id;
     char nombreCompleto[30];
     char mail[50];
-    char contrasenia[8];
+    char contrasenia[12];
 } Usuario;
 
-typedef struct
+typedef struct nodoHistorial
 {
-    registro dato;
-    struct nodoHistorial* sig;
-    struct nodoHistorial* ant;
+    datosCadaPublicacion dato;
+    struct nodoHistorial *sig;
+    struct nodoHistorial *ant;
 } nodoHistorial;
 
-typedef struct
+typedef struct nodoListaUsuario
 {
     Usuario datosLogin;
-    nodoHistorial* listaHistorial;
-    struct nodoListaUsuario* sig;
+    nodoHistorial *listaHistorial;
+    struct nodoListaUsuario *sig;
 } nodoListaUsuario;
 
-nodoListaUsuario* inicListaUsuario();
-nodoListaUsuario* crearNodoUsuario(Usuario dato);
-nodoListaUsuario* agregarPrincipioUsuario(nodoListaUsuario* lista, nodoListaUsuario* nuevoNodo);
-nodoListaUsuario* cargarUsuario(char nombreArchivo[30], nodoListaUsuario* lista);
-nodoListaUsuario* altaUsuario(nodoListaUsuario* lista, Usuario dato);
-nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id);
-nodoListaUsuario* buscarUsuarioPorEmail(nodoListaUsuario* lista, char correo[30]);
-nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* lista, char archivoUsuarios[]);
+nodoListaUsuario *inicListaUsuario();
+nodoListaUsuario *crearNodoUsuario(Usuario dato);
+nodoListaUsuario *agregarPrincipioUsuario(nodoListaUsuario *lista, nodoListaUsuario *nuevoNodo);
+nodoListaUsuario *cargarUsuario(char nombreArchivo[30], nodoListaUsuario *lista);
+nodoListaUsuario *altaUsuario(nodoListaUsuario *lista, Usuario dato);
+nodoListaUsuario *buscarUsuario(nodoListaUsuario *lista, int id);
+nodoListaUsuario *buscarUsuarioPorEmail(nodoListaUsuario *lista, char correo[30]);
+nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* lista);
 
 #endif

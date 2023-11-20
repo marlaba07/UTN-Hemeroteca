@@ -3,10 +3,11 @@
 
 void animacionCargando();
 void registroExitoso();
-void sleep();
+void customSleep();
 void bienvenidaUsuario();
 void cerrar();
 void opcionIncorrecta();
 void opcionesMenuUsuario();
+void errorRegistro();
 
 #endif

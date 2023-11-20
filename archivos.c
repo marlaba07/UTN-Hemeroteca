@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "animaciones.h"
 #include "menuPrincipal.h"
@@ -10,26 +11,25 @@
 #include "archivos.h"
 #include "publicacionMusical.h"
 
-// --- USUARIO ---
+// --- USUARIO --- //
 
-Usuario usuario()
+Usuario cargarDatosUnUsuario()
 {
     Usuario aux;
 
     printf("Ingresar nombre completo: ");
     fflush(stdin);
+    //fgets(aux.nombreCompleto, sizeof(aux.nombreCompleto), stdin);
     gets(aux.nombreCompleto);
-
-    puts("");
 
     printf("Ingresar e-mail: ");
     fflush(stdin);
+    //fgets(aux.mail, sizeof(aux.mail), stdin);
     gets(aux.mail);
 
-    puts("");
-
-    printf("Ingresar contrasenia: ");
+    printf("Ingresar contrase%ca: ", 164);
     fflush(stdin);
+    //fgets(aux.contrasenia, sizeof(aux.contrasenia), stdin);
     gets(aux.contrasenia);
 
     return aux;
@@ -37,51 +37,61 @@ Usuario usuario()
 
 void cargarArchivoUsuarios(char nombreArchivo[20])
 {
+    srand(time(NULL));
+
     Usuario aux;
     char seguir = 's';
 
-    FILE* archivo = fopen(nombreArchivo, "ab");
-    if(archivo)
-    {
-        while(seguir == 's')
-        {
-            aux = usuario();
+    FILE *archivo = fopen(nombreArchivo, "ab");
 
-            // ID autoincremental
+    if (archivo != NULL)
+    {
+        while (seguir == 's')
+        {
+            aux = cargarDatosUnUsuario();
+
+            /* // ID autoincremental
             fseek(archivo, 0, SEEK_END);
             int cant = ftell(archivo) / sizeof(Usuario);
-            aux.id = cant + 1;
+            aux.id = cant + 1; */
+
+            aux.id = rand() % 50 + 1;
 
             fseek(archivo, 0, SEEK_SET);
             fwrite(&aux, sizeof(Usuario), 1, archivo);
 
-            puts("");
-
-            printf("Desea seguir cargando? (s/n): ");
+            printf("Desea seguir cargando usuarios? (s/n): ");
             fflush(stdin);
             scanf("%c", &seguir);
-
-            puts("");
+            system("cls");
         }
 
         fclose(archivo);
     }
     else
-        printf("No se pudo abrir elarchivo \n");
+    {
+        printf("Error: no se pudo abrir el archivo. \n");
+    }
 }
 
 void mostrarArchivoUsuarios(char nombreArchivo[20])
 {
     Usuario auxiliar;
-    FILE* archivo = fopen(nombreArchivo, "rb");
-    if(archivo)
+
+    FILE *archivo = fopen(nombreArchivo, "rb");
+
+    if (archivo != NULL)
     {
-        while(fread(&auxiliar, sizeof(Usuario), 1, archivo) > 0)
+        while (fread(&auxiliar, sizeof(Usuario), 1, archivo) > 0)
         {
             mostrarUnUsuario(auxiliar);
         }
 
         fclose(archivo);
+    }
+    else
+    {
+        printf("Error: no se pudo abrir el archivo. \n");
     }
 }
 
@@ -89,220 +99,133 @@ void mostrarUnUsuario(Usuario dato)
 {
     printf("\n ------------------------------- \n");
     printf(" ID: %d \n", dato.id);
-    printf(" Nombre y apellido: %s \n", dato.nombreCompleto);
+    printf(" Nombre y apellido: %s", dato.nombreCompleto);
     printf(" E-mail: %s ", dato.mail);
     printf("\n ------------------------------- \n");
 }
 
-// --- PUBLICACION MUSICAL ---
+// --- PUBLICACION MUSICAL --- //
 
-registro registroMusical()
+datosCadaPublicacion pedirDatosRegistro(void)
 {
-    registro aux;
+    datosCadaPublicacion nuevoRegistro;
 
-    printf(" ---- De la publicacion ---- \n");
-    printf("Ingresar titulo: ");
+    printf("---- Carga de Datos de la Publicacion: ----\n");
+
+    printf("- Ingrese el titulo: ");
     fflush(stdin);
-    gets(aux.registro.titulo);
+    fgets(nuevoRegistro.datosPublicacion.titulo, sizeof(nuevoRegistro.datosPublicacion.titulo), stdin);
 
-    printf("Ingresar fecha de publicacion: ");
+    printf("- Ingrese el genero: ");
     fflush(stdin);
-    gets(aux.registro.fechaPublicacion);
+    fgets(nuevoRegistro.datosPublicacion.genero, sizeof(nuevoRegistro.datosPublicacion.genero), stdin);
 
-    printf("Ingresar genero: ");
+    printf("- Ingrese el dia de publicacion: ");
+    nuevoRegistro.datosPublicacion.dia = ingresarDia();
+
+    printf("- Ingrese el mes de publicacion: ");
+    nuevoRegistro.datosPublicacion.mes = ingresarMes();
+
+    printf("- Ingrese el anio de publicacion: ");
+    nuevoRegistro.datosPublicacion.anio = ingresarAnio();
+
+    printf("- Ingrese el nombre y apellido del autor: ");
     fflush(stdin);
-    gets(aux.registro.genero);
+    fgets(nuevoRegistro.datosAutor.nombreYapellido, sizeof(nuevoRegistro.datosAutor.nombreYapellido), stdin);
 
-    puts("");
+    printf("- Ingrese la nacionalidad del autor: ");
+    fgets(nuevoRegistro.datosAutor.nacionalidad, sizeof(nuevoRegistro.datosAutor.nacionalidad), stdin);
 
-    printf(" ---- Del autor ---- \n");
-    printf("\nIngresar nombre completo del autor: ");
+    printf("\n- Ingrese la biografia del autor: ");
     fflush(stdin);
-    gets(aux.registro.nombreYapellidoAutor);
+    fgets(nuevoRegistro.datosAutor.biografia, sizeof(nuevoRegistro.datosAutor.biografia), stdin);
 
-    printf("\nIngresar nacionalidad del autor: ");
+    printf("\n- Ingrese la descripcion: ");
     fflush(stdin);
-    gets(aux.registro.nacionalidad);
+    fgets(nuevoRegistro.datosPublicacion.descripcion, sizeof(nuevoRegistro.datosPublicacion.descripcion), stdin);
 
-    printf("\nIngresar una breve biografia del autor: ");
+    printf("\n- Ingrese la primera palabra clave: ");
     fflush(stdin);
-    gets(aux.registro.biografia);
+    fgets(nuevoRegistro.palabraClave1, sizeof(nuevoRegistro.palabraClave1), stdin);
 
-    puts("");
-
-    printf(" ---- Adicional ---- \n");
-    printf("\nFuente de informacion: ");
+    printf("- Ingrese la segunda palabra clave: ");
     fflush(stdin);
-    gets(aux.fuente);
+    fgets(nuevoRegistro.palabraClave2, sizeof(nuevoRegistro.palabraClave2), stdin);
 
-    printf("\nBreve descripcion de la publicacion: ");
-    fflush(stdin);
-    gets(aux.descripcion);
+    // Inicializa otros campos si es necesario
+    nuevoRegistro.opiniones = NULL; // Inicializa la lista de opiniones como vacia
+    nuevoRegistro.prestado = 0;     // Por defecto, no prestado
+    nuevoRegistro.cantVecesLeida = 0;
+    strcpy(nuevoRegistro.fuente, "Hemeroteca");
 
-    printf("\nPalabra clave para facilitar la busqueda: ");
-    fflush(stdin);
-    gets(aux.etiquetado);
-
-    return aux;
+    return nuevoRegistro;
 }
 
 void cargarArchivoPublicacion(char nombreArchivo[20])
 {
-    registro aux;
+    datosCadaPublicacion aux;
     char seguir = 's';
 
-    FILE* archivo = fopen(nombreArchivo, "ab");
-    if(archivo)
+    FILE *archivo = fopen(nombreArchivo, "ab");
+
+    if (archivo != NULL)
     {
-        while(seguir == 's')
+        while (seguir == 's')
         {
-            aux = registroMusical();
+            aux = pedirDatosRegistro();
 
-            // ID autoincremental
-            fseek(archivo, 0, SEEK_END);
-            int cant = ftell(archivo) / sizeof(registro);
-            aux.idRegistro = cant + 1;
+            fwrite(&aux, sizeof(datosCadaPublicacion), 1, archivo);
 
-            fwrite(&aux, sizeof(registro), 1, archivo);
-
-            puts("");
-            printf("Desea seguir cargando? (s/n): ");
+            printf("\nDesea seguir cargando publicaciones? (s/n): ");
             fflush(stdin);
             scanf("%c", &seguir);
-            puts("");
+            system("cls");
         }
 
         fclose(archivo);
     }
     else
-        printf("No se pudo abrir elarchivo \n");
+    {
+        printf("Error: no se pudo abrir el archivo. \n");
+    }
+}
+
+void mostrarUnaPublicacion(datosCadaPublicacion dato)
+{
+    printf("\n ------------------------------- \n");
+    printf("- Titulo: %s", dato.datosPublicacion.titulo);
+    printf("- Genero: %s", dato.datosPublicacion.genero);
+    mostrarFecha(dato);
+    printf("- Descripcion: %s \n\n", dato.datosPublicacion.descripcion);
+    printf("- Nombre completo del autor: %s", dato.datosAutor.nombreYapellido);
+    printf("- Nacionalidad: %s \n", dato.datosAutor.nacionalidad);
+    printf("- Biografia: %s \n\n", dato.datosAutor.biografia);
+    printf("- Primer palabra clave: %s", dato.palabraClave1);
+    printf("- Primer palabra clave: %s", dato.palabraClave2);
+    printf("- Prestado (1 = si | 0 = no): %d \n", dato.prestado);
+    printf("- Fuente de informacion: %s \n", dato.fuente);
+    printf("- Veces leidas: %d", dato.cantVecesLeida);
+    printf("\n ------------------------------- \n");
 }
 
 void mostrarArchivoPublicacion(char nombreArchivo[20])
 {
-    registro aux;
-    FILE* archivo = fopen(nombreArchivo, "rb");
-    if(archivo)
+    datosCadaPublicacion aux;
+    FILE *archivo = fopen(nombreArchivo, "rb");
+
+    if (archivo != NULL)
     {
-        while(fread(&aux, sizeof(registro), 1, archivo) > 0)
+        fseek(archivo, 0, SEEK_SET);
+
+        while (fread(&aux, sizeof(datosCadaPublicacion), 1, archivo) > 0)
         {
             mostrarUnaPublicacion(aux);
         }
 
         fclose(archivo);
     }
-}
-
-void mostrarUnaPublicacion(registro dato)
-{
-    printf("\n ------------------------------- \n");
-    printf(" Titulo: %s \n", dato.registro.titulo);
-    printf(" Genero: %s \n", dato.registro.genero);
-    printf(" Fecha publicacion: %s \n", dato.registro.fechaPublicacion);
-    puts("");
-    printf(" Nombre completo autor: %s \n", dato.registro.nombreYapellidoAutor);
-    printf(" Nacionalidad: %s \n", dato.registro.nacionalidad);
-    printf(" Biografia: %s ", dato.registro.biografia);
-    puts("");
-    printf(" ID Registro: %d \n", dato.idRegistro );
-    printf(" Descripcion: %s \n", dato.descripcion );
-    printf(" Etiquetado: %s ", dato.etiquetado);
-    printf(" Fuenta de informacion: %s ", dato.fuente);
-    printf("\n ------------------------------- \n");
-}
-
-// --- REGISTRO GENERAL ---
-
-stRegistro registroGeneral()
-{
-    stRegistro aux;
-
-    printf("Ingresar titulo: ");
-    fflush(stdin);
-    gets(aux.titulo);
-
-    printf("Ingresar genero: ");
-    fflush(stdin);
-    gets(aux.genero);
-
-    printf("Ingresar fecha de publicacion: ");
-    fflush(stdin);
-    gets(aux.fechaPublicacion);
-
-    printf("\n");
-
-    printf("Ingresar nombre completo del autor: ");
-    fflush(stdin);
-    gets(aux.nombreYapellidoAutor);
-
-    printf("Ingresar nacionalidad del autor: ");
-    fflush(stdin);
-    gets(aux.nacionalidad);
-
-    printf("Ingresar una breve biografia del autor: ");
-    fflush(stdin);
-    gets(aux.biografia);
-
-    return aux;
-}
-
-void cargarArchivoRegistro(char nombreArchivo[20])
-{
-    stRegistro aux;
-    char seguir = 's';
-
-    FILE* archivo = fopen(nombreArchivo, "ab");
-    if(archivo)
-    {
-        while(seguir == 's')
-        {
-            aux = registroGeneral();
-
-            fwrite(&aux, sizeof(stRegistro), 1, archivo);
-
-            puts("");
-            printf("Desea seguir cargando? (s/n): ");
-            fflush(stdin);
-            scanf("%c", &seguir);
-            puts("");
-        }
-
-        fclose(archivo);
-    }
     else
-        printf("No se pudo abrir elarchivo \n");
-}
-
-void mostrarArchivoRegistro(char nombreArchivo[20])
-{
-    stRegistro aux;
-    FILE* archivo = fopen(nombreArchivo, "rb");
-    if(archivo)
     {
-        while(fread(&aux, sizeof(stRegistro), 1, archivo) > 0)
-        {
-            mostrarUnRegistro(aux);
-        }
-
-        fclose(archivo);
+        printf("Error: no se pudo abrir el archivo. \n");
     }
 }
-
-void mostrarUnRegistro(stRegistro dato)
-{
-    printf("\n ------------------------------- \n");
-    printf(" Titulo: %s \n", dato.titulo);
-    printf(" Genero: %s \n", dato.genero);
-    printf(" Fecha publicacion: %s \n", dato.fechaPublicacion);
-    printf(" Nombre completo autor: %s \n", dato.nombreYapellidoAutor);
-    printf(" Nacionalidad: %s \n", dato.nacionalidad);
-    printf(" Biografia: %s ", dato.biografia);
-    printf("\n ------------------------------- \n");
-}
-
-
-
-
-
-
-

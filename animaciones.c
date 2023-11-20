@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 #include "animaciones.h"
 #include "menuPrincipal.h"
@@ -10,20 +11,19 @@
 #include "archivos.h"
 #include "publicacionMusical.h"
 
-
 void animacionCargando()
 {
     printf("\n\n\n                                                 Cargando");
-    sleep();
+    customSleep();
     printf("\n\n\n                                                 Cargando.");
-    sleep();
+    customSleep();
     printf("\n\n\n                                                 Cargando..");
-    sleep();
+    customSleep();
     printf("\n\n\n                                                 Cargando...");
-    sleep();
+    customSleep();
 }
 
-void sleep()
+void customSleep()
 {
     Sleep(300);
     system("cls");
@@ -73,37 +73,23 @@ void errorRegistro()
     Sleep(1500);
     system("cls");
     animacionCargando();
-    inicio();
 }
 
 void opcionesMenuUsuario()
 {
-    printf("\n1. Registrar publicacion ");
-    printf("\n2. Buscar publicacion ");
-    printf("\n3. Mostrar detalle de publicacion ");
-    printf("\n4. Clasificar por genero ");
-    printf("\n5. Mostrar publicacion por fecha ");
-    printf("\n5. Mostrar publicacion por fuente ");
-    printf("\n6. Mostrar publicaciones mas populares ");
-    printf("\n7. Guardar y cargar publicaciones ");
-    printf("\n8. Actualizar informacion de publicaciones ");
-    printf("\n9. Elimianr publicaciones ");
-    printf("\n10. Registro de autores ");
-    printf("\n11. Busqueda de autores ");
-    printf("\n12. Mostrar detalles de un autor ");
-    printf("\n13. Generar informes ");
-    printf("\n14. Etiquetado de publicaciones ");
-    printf("\n15. Comentarios y clasificaciones ");
-    printf("\n16. Recomendaciones personalizadas ");
-    printf("\n17. Reservar publicaciones ");
-    printf("\n18. Gestion de prestamos ");
-    printf("\n0 . Salir \n");
+    printf("1. Registrar publicacion. \n");
+    printf("2. Buscar publicacion. \n");
+    printf("3. Mostrar detalle de publicacion. \n");
+    printf("4. Clasificar por genero. \n");
+    printf("5. Mostrar publicacion por fecha. \n");
+    printf("6. Mostrar publicacion por fuente. \n");
+    printf("7. Mostrar publicaciones mas populares. \n");
+    printf("8. Actualizar informacion de publicaciones. \n");
+    printf("9. Registro de autores. \n");
+    printf("10. Busqueda de autores por nombre o nacionalidad. \n");
+    printf("11. Mostrar detalles de un autor. \n");
+    printf("12. Buscar por palabra clave \n");
+    printf("13. Comentarios y clasificaciones. \n");
+    printf("14. Reservar publicaciones. \n");
+    printf("0.  Salir. \n");
 }
-
-
-
-
-
-
-
-

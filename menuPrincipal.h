@@ -4,6 +4,8 @@
 void systemix();
 void inicio();
 void despedida();
-void defaulT();
+void defaultCase();
+void menuPrincipal(char archivoUsuarios[]);
+int main();
 
 #endif

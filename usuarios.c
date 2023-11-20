@@ -10,43 +10,42 @@
 #include "usuarios.h"
 #include "archivos.h"
 
+// --- LISTA DE USUARIOS --- //
 
-// --- |LISTA DE USUARIOS| ---
-
-nodoListaUsuario* inicListaUsuario()
+nodoListaUsuario *inicListaUsuario()
 {
     return NULL;
 }
 
-nodoListaUsuario* crearNodoUsuario(Usuario dato)
+nodoListaUsuario *crearNodoUsuario(Usuario dato)
 {
-    nodoListaUsuario* aux = (nodoListaUsuario*)malloc(sizeof(nodoListaUsuario));
+    nodoListaUsuario *aux = (nodoListaUsuario *)malloc(sizeof(nodoListaUsuario));
     aux->datosLogin = dato;
     aux->sig = NULL;
 
     return aux;
 }
 
-nodoListaUsuario* agregarPrincipioUsuario(nodoListaUsuario* lista, nodoListaUsuario* nuevoNodo)
+nodoListaUsuario *agregarPrincipioUsuario(nodoListaUsuario *lista, nodoListaUsuario *nuevoNodo)
 {
-    if(lista == NULL)
+    if (lista == NULL)
         lista = nuevoNodo;
     else
     {
         nuevoNodo->sig = lista;
-        lista= nuevoNodo;
+        lista = nuevoNodo;
     }
     return lista;
 }
 
-nodoListaUsuario* cargarUsuario(char nombreArchivo[30], nodoListaUsuario* lista)
+nodoListaUsuario *cargarUsuario(char nombreArchivo[30], nodoListaUsuario *lista)
 {
     Usuario auxiliar;
 
-    FILE* archivo = fopen(nombreArchivo, "rb");
-    if(archivo)
+    FILE *archivo = fopen(nombreArchivo, "rb");
+    if (archivo)
     {
-        while( fread(&auxiliar, sizeof(Usuario), 1, archivo) > 0)
+        while (fread(&auxiliar, sizeof(Usuario), 1, archivo) > 0)
         {
             lista = altaUsuario(lista, auxiliar);
         }
@@ -57,27 +56,27 @@ nodoListaUsuario* cargarUsuario(char nombreArchivo[30], nodoListaUsuario* lista)
     return lista;
 }
 
-nodoListaUsuario* altaUsuario(nodoListaUsuario* lista, Usuario dato)
+nodoListaUsuario *altaUsuario(nodoListaUsuario *lista, Usuario dato)
 {
-    nodoListaUsuario* usuarioEncontrado = buscarUsuario(lista, dato.id);
+    nodoListaUsuario *usuarioEncontrado = buscarUsuario(lista, dato.id);
 
-    if(usuarioEncontrado == NULL)
+    if (usuarioEncontrado == NULL)
     {
-        nodoListaUsuario* nuevoNodo = crearNodoUsuario(dato);
+        nodoListaUsuario *nuevoNodo = crearNodoUsuario(dato);
         lista = agregarPrincipioUsuario(lista, nuevoNodo);
     }
 
     return lista;
 }
 
-nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id)
+nodoListaUsuario *buscarUsuario(nodoListaUsuario *lista, int id)
 {
-    nodoListaUsuario* seguidora = lista;
-    nodoListaUsuario* usuarioEncontrado = NULL;
+    nodoListaUsuario *seguidora = lista;
+    nodoListaUsuario *usuarioEncontrado = NULL;
 
-    while(seguidora!= NULL)
+    while (seguidora != NULL)
     {
-        if(seguidora->datosLogin.id == id)
+        if (seguidora->datosLogin.id == id)
         {
             usuarioEncontrado = seguidora;
         }
@@ -88,14 +87,14 @@ nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id)
     return usuarioEncontrado;
 }
 
-nodoListaUsuario* buscarUsuarioPorEmail(nodoListaUsuario* lista, char correo[30])
+nodoListaUsuario *buscarUsuarioPorEmail(nodoListaUsuario *lista, char correo[30])
 {
-    nodoListaUsuario* seguidora = lista;
-    nodoListaUsuario* usuarioEncontrado = NULL;
+    nodoListaUsuario *seguidora = lista;
+    nodoListaUsuario *usuarioEncontrado = NULL;
 
-    while(seguidora!= NULL )
+    while (seguidora != NULL)
     {
-        if( strcmp(seguidora->datosLogin.mail, correo) == 0 )
+        if (strcmp(seguidora->datosLogin.mail, correo) == 0)
         {
             usuarioEncontrado = seguidora;
         }
@@ -106,17 +105,17 @@ nodoListaUsuario* buscarUsuarioPorEmail(nodoListaUsuario* lista, char correo[30]
     return usuarioEncontrado;
 }
 
-void mostrarEstructura(nodoListaUsuario* lista)
+void mostrarEstructura(nodoListaUsuario *lista)
 {
-    if(lista != NULL)
+    if (lista != NULL)
     {
         mostrarUnUsuario(lista->datosLogin);
         mostrarEstructura(lista->sig);
     }
 }
 
-// --- |LISTA HISTORIAL DE USUARIO| ---
-
+// --- LISTA HISTORIAL DE USUARIO --- //
+/*
 nodoHistorial* inicListaHistorial()
 {
     return NULL;
@@ -159,9 +158,4 @@ nodoHistorial* agregarFinalHistorial(nodoHistorial* lista, nodoHistorial* nuevoN
 
     return lista;
 }
-
-
-
-
-
-
+*/

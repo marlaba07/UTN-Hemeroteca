@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define RESET_COLOR    "\x1b[0m"
-#define CYAN_F     "\x1b[46m"
-#define NEGRO_T        "\x1b[30m"
-#define ROJO_F     "\x1b[41m"
+#define RESET_COLOR "\x1b[0m"
+#define CYAN_F "\x1b[46m"
+#define NEGRO_T "\x1b[30m"
+#define ROJO_F "\x1b[41m"
 
 #include "animaciones.h"
 #include "menuPrincipal.h"
@@ -15,14 +15,42 @@
 #include "archivos.h"
 #include "publicacionMusical.h"
 
+void defaultCase()
+{
+    system("cls");
+    printf("\n\n                                     Opcion no valida. Ingrese un numero del 1 al 3. \n");
+    despedida();
+}
+
+void inicio()
+{
+    system("cls");
+    printf("\n                                                 " CYAN_F NEGRO_T "BIENVENIDO/A A LA HEMEROTECA\n\n" RESET_COLOR);
+    puts("\n\n");
+    printf("                                                    1. INICIAR SESION");
+    printf("\n\n\n");
+    printf("                                                    2. CREAR CUENTA");
+    printf("\n\n\n");
+    printf("                                                    3. SALIR");
+    printf("\n\n\n                                                    ");
+}
+
+void despedida()
+{
+    printf("\n\n\n                                                  " ROJO_F "VUELVA PRONTO!\n\n" RESET_COLOR);
+    printf("                                            " ROJO_F "PRESIONE UNA TECLA PARA SALIR\n\n" RESET_COLOR);
+    printf("\n\n\n                                                    ");
+    inicio();
+}
+
 void menuPrincipal(char archivoUsuarios[])
 {
     char email[30], contra[30];
     char contraseniaAdmin[] = "admin";
     int opcion, volver;
 
-    nodoListaUsuario* listaUsuarios = inicListaUsuario();
-    nodoListaUsuario* usuarioEncontrado = NULL;
+    nodoListaUsuario *listaUsuarios = inicListaUsuario();
+    nodoListaUsuario *usuarioEncontrado = NULL;
 
     inicio();
 
@@ -31,10 +59,10 @@ void menuPrincipal(char archivoUsuarios[])
     scanf("%d", &opcion);
     system("cls");
 
-    switch(opcion)
+    switch (opcion)
     {
     case 1:
-        // Si el usuario ingresa la opción 1, ingresa.
+        // Si el usuario ingresa la opcion 1, ingresa.
         printf(" ---- LOGIN ---- \n\n");
         printf("\nIngrese su mail: ");
         fflush(stdin);
@@ -42,35 +70,35 @@ void menuPrincipal(char archivoUsuarios[])
 
         listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
         usuarioEncontrado = buscarUsuarioPorEmail(listaUsuarios, email);
-        if(usuarioEncontrado != NULL)
+        if (usuarioEncontrado != NULL)
         {
-            for( int i=0; i<3; i++ )
+            for (int i = 0; i < 3; i++)
             {
-                printf("\nIngrese su contrase%ca\n%i intento de 3\n", 164, i+1); // 164 = ñ
+                printf("\nIngrese su contrase%ca\n%i intento de 3\n", 164, i + 1); // 164 = ï¿½
                 fflush(stdin);
                 gets(contra);
 
-                if( strcmp(usuarioEncontrado->datosLogin.contrasenia, contra) == 0 )
+                if (strcmp(usuarioEncontrado->datosLogin.contrasenia, contra) == 0)
                 {
                     animacionCargando();
-                    listaUsuarios = menuUsuario(usuarioEncontrado, listaUsuarios, archivoUsuarios);
+                    listaUsuarios = menuUsuario(usuarioEncontrado, listaUsuarios);
                     i = 3;
                 }
                 else
                 {
-                    if(i != 2)
+                    if (i != 2)
                     {
                         system("cls");
                         printf("Constrase%ca incorrecta, ingrese 1 para ingresar la constrase%ca nuevamente. \n", 164, 164);
                         scanf("%i", &volver);
                     }
-                    else if(i == 2)
+                    else if (i == 2)
                     {
                         system("cls");
                         printf("Superaste el limites de intentos, seras redireccionado al menu principal... \n");
                         animacionCargando();
                     }
-                    if(volver == 1)
+                    if (volver == 1)
                         system("cls");
                 }
             }
@@ -80,15 +108,21 @@ void menuPrincipal(char archivoUsuarios[])
 
         break;
     case 2:
-        // Si el usuario ingresa la opción 2, crea su cuenta.
+        // Si el usuario ingresa la opcion 2, crea su cuenta.
         printf(" ---- REGISTRO ---- \n\n");
         cargarArchivoUsuarios(archivoUsuarios);
         listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
+        printf("Archivo: \n");
+        mostrarArchivoUsuarios(archivoUsuarios);
+        system("cls");
+        printf("Lista: \n");
+        mostrarEstructura(listaUsuarios);
+        system("cls");
         registroExitoso();
         main();
         break;
     case 3:
-        // Si el usuario ingresa la opción 3, sale del programa.
+        // Si el usuario ingresa la opcion 3, sale del programa.
         despedida();
         break;
     case 99:
@@ -102,46 +136,23 @@ void menuPrincipal(char archivoUsuarios[])
 
         listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
         usuarioEncontrado = buscarUsuarioPorEmail(listaUsuarios, email); // admin@adm.com - admin
-        if(usuarioEncontrado != NULL)
+        if (usuarioEncontrado != NULL)
         {
-            if( strcmp(usuarioEncontrado->datosLogin.contrasenia, contraseniaAdmin) == 0 )
+            if (strcmp(usuarioEncontrado->datosLogin.contrasenia, contraseniaAdmin) == 0)
             {
                 animacionCargando();
-                //listaUsers = menuDeAdministradores(usuarioEncontrado, listaUsuarios, archivoUsuarios);
+                listaUsuarios = menuDeAdministradores(usuarioEncontrado, listaUsuarios, archivoUsuarios);
             }
+        }
+        else
+        {
+            system("cls");
+            printf("\nAdmin no registrado! \n");
         }
 
         break;
     default:
-        defaulT();
+        defaultCase();
         break;
     }
-}
-
-void defaulT()
-{
-    system("cls");
-    printf("\n\n                                     Opcion no valida. Ingrese un numero del 1 al 3. \n");
-    despedida();
-}
-
-void inicio()
-{
-    system("cls");
-    printf("\n                                                 "CYAN_F NEGRO_T"BIENVENIDO/A A LA HEMEROTECA\n\n"RESET_COLOR);
-    puts("\n\n");
-    printf("                                                    1. INICIAR SESION");
-    printf("\n\n\n");
-    printf("                                                    2. CREAR CUENTA");
-    printf("\n\n\n");
-    printf("                                                    3. SALIR");
-    printf("\n\n\n                                                    ");
-}
-
-void despedida()
-{
-    printf("\n\n\n                                                  "ROJO_F"VUELVA PRONTO!\n\n"RESET_COLOR);
-    printf("                                            "ROJO_F"PRESIONE UNA TECLA PARA SALIR\n\n"RESET_COLOR);
-    printf("\n\n\n                                                    ");
-    inicio();
 }

@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define RESET_COLOR "\x1b[0m"
+#define CYAN_F "\x1b[46m"
+#define NEGRO_T "\x1b[30m"
+#define ROJO_F "\x1b[41m"
+
 #include "animaciones.h"
 #include "menuPrincipal.h"
 #include "menuAdministrador.h"
@@ -9,75 +14,66 @@
 #include "usuarios.h"
 #include "archivos.h"
 #include "publicacionMusical.h"
+#include "arboles.h"
 
-/*
-nodoListaUsuario* menuDeAdministradores(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* listaUsers, char archivoUsuarios[])
+nodoListaUsuario* menuDeAdministradores(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* listaUsers)
 {
     int opcion = 0;
+    char seguir = 's';
+    nodo_arbol *arbol = inic_arbol();
 
-    while(opcion!=7)
+    while(seguir == 's')
     {
-        system("cls");
-        printf("\n1. listados");
-        printf("\n2. alta");
-        printf("\n3. baja");
-        printf("\n4. modificacion");
-        printf("\n5. consulta");
-        printf("\n6. listado peliculas");
+        bienvenidaAdmin();
+
+        printf("\n1. Ver todos los usuarios registrados ");
+        printf("\n2. Ver todas las publicaciones ");
+        printf("\n3. Eliminar publicacion de usuario "); // Eliminar publicaciones: Permite al usuario eliminar una publicación de la hemeroteca. [Opcional, ver que onda]
+        printf("\n4. Generar informes y estadisticas "); // Generar informes: Genera informes y estadísticas sobre la hemeroteca musical, como las publicaciones más leídas, autores más destacados, etc.
+        printf("\n5. Generar recomendaciones "); // Recomendaciones personalizadas: Basado en las preferencias y el historial de lectura de un usuario, el sistema puede proporcionar recomendaciones personalizadas de publicaciones musicales que podrían ser de su interés.
+        printf("\n6.  ");
         printf("\n7. salir\n");
 
-        scanf("%i",&opcion);
+        printf("\n\nIngresar una opcion: ");
+        fflush(stdin);
+        scanf("%d",&opcion);
 
-        do
+        system("cls");
+        switch(opcion)
         {
-            switch(opcion)
-            {
-            case 1:
-                ;
-                system("cls");
-                printf("listados\n");
-                Sleep(1000);
-                listados(archivoUsers);
-                break;
-            case 2:
-                ;
-                system("cls");
-                printf("alta\n");
-                Sleep(1000);
-                listaUsers = altaUsuarioAdmin(listaUsers,archivoUsers);
-                break;
-            case 3:
-                ;
-                system("cls");
-                printf("baja\n");
-                Sleep(1000);
-                listaUsers = bajaUsuarioAdmin(listaUsers,archivoUsers);
-                break;
-            case 4:
-                ;
-                system("cls");
-                printf("modificacion\n");
-                Sleep(1000);
-                listaUsers = modificarPerfilAdmin(listaUsers,archivoUsers);
-                break;
-            case 5:
-                ;
-                system("cls");
-                printf("consulta\n");
-                Sleep(1000);
-                consulta(listaUsers,archivoUsers);
-                break;
-            case 6:
-                ;
-                system("cls");
-                menuPelisAdmin(archivo);
-                break;
-            }
+        case 1:
+            arbol = archivo2Arbol("Usuarios.bin", arbol);
+            printf("" CYAN_F NEGRO_T "INFORMACION EN ARBOL:\n\n" RESET_COLOR);
+            inOrder(arbol);
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4:
+
+            break;
+        case 5:
+
+            break;
+        case 6:
+
+            break;
+        case 7:
+
+            break;
+        default:
+            printf("Opcion incorrecta. ");
         }
-        while(opcion <1 && opcion > 6);
+
+        printf("Desea continuar? (s/n): ");
+        fflush(stdin);
+        scanf("%c", &seguir);
     }
 }
-*/
+
 
 
 

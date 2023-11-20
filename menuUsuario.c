@@ -9,13 +9,14 @@
 #include "usuarios.h"
 #include "archivos.h"
 #include "publicacionMusical.h"
+#include "Lista_De_Listas.h"
 
-nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* lista, char archivoPublicacion[])
+nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* lista)
 {
     int opcion;
-    nodoHistorial* historial = inicListaHistorial();
-
     char seguir = 's';
+
+    lista_de_listas *listaPrincipal = inicListaDelistas();
 
     while(seguir == 's')
     {
@@ -30,13 +31,15 @@ nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsua
         switch(opcion)
         {
         case 1:
-            cargarArchivoPublicacion(archivoPublicacion);
-
+            cargarArchivoPublicacion("Registros.bin");  // Cargo en el archivo
+            listaPrincipal = archivo2ListaDeListas("Registros.bin", listaPrincipal);  // Pasaje del archivo a la lista
+            printf("\nLa publicacion se cargo correctamente! \n");
             break;
         case 2:
             break;
         case 3:
-            mostrarArchivoPublicacion(archivoPublicacion);
+            mostrarArchivoPublicacion("Registros.bin"); // Muestro el archivo para corroborar si se cargo
+            recorrerYmostrarListaDeListas(listaPrincipal);  // Muestro la lista
             break;
         case 4:
             break;
@@ -61,12 +64,6 @@ nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsua
         case 14:
             break;
         case 15:
-            break;
-        case 16:
-            break;
-        case 17:
-            break;
-        case 18:
             break;
         default:
             break;

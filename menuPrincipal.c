@@ -131,7 +131,7 @@ void menuPrincipal(char archivoUsuarios[])
         gets(contra);
 
         listaUsuarios = cargarUsuario(archivoUsuarios, listaUsuarios);
-        usuarioEncontrado = buscarUsuarioPorEmail(listaUsuarios, email); // admin@adm.com - admin
+        usuarioEncontrado = buscarUsuarioPorEmail(listaUsuarios, email); // admin@admin.com - admin
         if (usuarioEncontrado != NULL)
         {
             if (strcmp(usuarioEncontrado->datosLogin.contrasenia, contraseniaAdmin) == 0)

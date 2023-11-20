@@ -31,7 +31,7 @@ nodoListaUsuario* menuDeAdministradores(nodoListaUsuario* usuarioEncontrado, nod
         printf("\n3. Eliminar publicacion de usuario "); // Eliminar publicaciones: Permite al usuario eliminar una publicación de la hemeroteca. [Opcional, ver que onda]
         printf("\n4. Generar informes y estadisticas "); // Generar informes: Genera informes y estadísticas sobre la hemeroteca musical, como las publicaciones más leídas, autores más destacados, etc.
         printf("\n5. Generar recomendaciones "); // Recomendaciones personalizadas: Basado en las preferencias y el historial de lectura de un usuario, el sistema puede proporcionar recomendaciones personalizadas de publicaciones musicales que podrían ser de su interés.
-        printf("\n6.  ");
+        printf("\n6. Actualizar informacion ");
         printf("\n7. salir\n");
 
         printf("\n\nIngresar una opcion: ");
@@ -47,7 +47,8 @@ nodoListaUsuario* menuDeAdministradores(nodoListaUsuario* usuarioEncontrado, nod
             inOrder(arbol);
             break;
         case 2:
-
+            mostrarArchivoPublicacion("Registros.bin");
+            recorrerYmostrarListaDeListas(listaPrincipal);
             break;
         case 3:
 
@@ -59,10 +60,11 @@ nodoListaUsuario* menuDeAdministradores(nodoListaUsuario* usuarioEncontrado, nod
 
             break;
         case 6:
-
+            actualizarInformacionPublicacion("Registros.bin");
+            listaPrincipal = archivo2ListaDeListas("Registros.bin", listaPrincipal);
             break;
         case 7:
-
+            defaultCase();
             break;
         default:
             printf("Opcion incorrecta. ");

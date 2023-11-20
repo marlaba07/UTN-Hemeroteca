@@ -23,39 +23,6 @@ int main()
     char archivoUsuarios[20] = "Usuarios.bin";
     char archivoRegistros[20] = "Registros.bin";
 
-    /*
-    lista_de_listas *listaPrincipal = inicListaDelistas();
-
-    // cargarArchivoUsuarios(archivoUsuarios);
-    printf("" CYAN_F NEGRO_T "INFORMACION EN ARCHIVO DE USUARIOS: " RESET_COLOR);
-    mostrarArchivoUsuarios(archivoUsuarios);
-    system("pause");
-
-    system("cls");
-
-    // cargarArchivoPublicacion(archivoRegistros);
-    printf("" CYAN_F NEGRO_T "INFORMACION EN ARCHIVO DE PUBLICACIONES: " RESET_COLOR);
-    mostrarArchivoPublicacion(archivoRegistros);
-    system("pause");
-
-    system("cls");
-
-    listaPrincipal = archivo2ListaDeListas(archivoRegistros, listaPrincipal);
-    printf("" CYAN_F NEGRO_T "INFORMACION EN LISTA DE LISTAS: " RESET_COLOR);
-    recorrerYmostrarListaDeListas(listaPrincipal);
-    system("pause");
-
-    system("cls");
-
-    nodo_arbol *arbol = inic_arbol();
-    arbol = archivo2Arbol(archivoUsuarios, arbol);
-    printf("" CYAN_F NEGRO_T "INFORMACION EN ARBOL:\n\n" RESET_COLOR);
-    inOrder(arbol);
-    system("pause");
-
-    system("cls");
-    */
-
     animacionCargando();
     menuPrincipal(archivoUsuarios);
 

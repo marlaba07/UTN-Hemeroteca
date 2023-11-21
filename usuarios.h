@@ -7,30 +7,36 @@ typedef struct
     int id;
     char nombreCompleto[30];
     char mail[50];
-    char contrasenia[8];
+    char contrasenia[12];
 } Usuario;
 
-typedef struct
+typedef struct nodoHistorial
 {
-    registro dato;
-    struct nodoHistorial* sig;
-    struct nodoHistorial* ant;
+    datosCadaPublicacion dato;
+    struct nodoHistorial *sig;
 } nodoHistorial;
 
-typedef struct
+typedef struct nodoListaUsuario
 {
     Usuario datosLogin;
-    nodoHistorial* listaHistorial;
-    struct nodoListaUsuario* sig;
+    nodoHistorial *listaHistorial;
+    struct nodoListaUsuario *sig;
 } nodoListaUsuario;
 
-nodoListaUsuario* inicListaUsuario();
-nodoListaUsuario* crearNodoUsuario(Usuario dato);
-nodoListaUsuario* agregarPrincipioUsuario(nodoListaUsuario* lista, nodoListaUsuario* nuevoNodo);
-nodoListaUsuario* cargarUsuario(char nombreArchivo[30], nodoListaUsuario* lista);
-nodoListaUsuario* altaUsuario(nodoListaUsuario* lista, Usuario dato);
-nodoListaUsuario* buscarUsuario(nodoListaUsuario* lista, int id);
-nodoListaUsuario* buscarUsuarioPorEmail(nodoListaUsuario* lista, char correo[30]);
-nodoListaUsuario* menuUsuario(nodoListaUsuario* usuarioEncontrado, nodoListaUsuario* lista, char archivoUsuarios[]);
+nodoHistorial *inicListaHistorial();
+nodoListaUsuario *inicListaUsuario();
+nodoHistorial *crearNodoHistorial(datosCadaPublicacion data);
+nodoListaUsuario *crearNodoUsuario(Usuario dato);
+nodoListaUsuario *agregarPrincipioUsuario(nodoListaUsuario *lista, nodoListaUsuario *nuevoNodo);
+nodoListaUsuario *archivo2ListaDeListasUsuarios(char archivoUsuarios[], char archivoRegistros[], nodoListaUsuario *lista);
+nodoListaUsuario *altaUsuario(char archivoRegistros[], nodoListaUsuario *lista, nodoListaUsuario *nuevoNodo);
+nodoListaUsuario *buscarUsuario(nodoListaUsuario *lista, int id);
+nodoListaUsuario *buscarUsuarioPorEmail(nodoListaUsuario *lista, char correo[30]);
+nodoHistorial *cargarDatosPublicacionesParaUsuario(char archivoRegistros[], nodoHistorial *nuevo);
+nodoHistorial *agregarFinalHistorial(nodoHistorial *lista, nodoHistorial *nuevoNodo);
+nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsuario *lista);
+void imprimirHistorialDeUnUsuario(datosCadaPublicacion dato);
+void mostrarHistorialDeUnUsuario(nodoHistorial *lista);
+void mostrarListaDeUsuarios(nodoListaUsuario *lista);
 
 #endif

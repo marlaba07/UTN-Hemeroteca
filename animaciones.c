@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 #include "animaciones.h"
 #include "menuPrincipal.h"
@@ -10,20 +11,19 @@
 #include "archivos.h"
 #include "publicacionMusical.h"
 
-
 void animacionCargando()
 {
     printf("\n\n\n                                                 Cargando");
-    sleep();
+    customSleep();
     printf("\n\n\n                                                 Cargando.");
-    sleep();
+    customSleep();
     printf("\n\n\n                                                 Cargando..");
-    sleep();
+    customSleep();
     printf("\n\n\n                                                 Cargando...");
-    sleep();
+    customSleep();
 }
 
-void sleep()
+void customSleep()
 {
     Sleep(300);
     system("cls");
@@ -33,7 +33,7 @@ void registroExitoso()
 {
     system("cls");
     printf("\n\n\n");
-    printf("                                           Usted se registro con exito! \n");
+    printf("                                           Usted se ha registrado con exito! \n");
     Sleep(1500);
     system("cls");
     animacionCargando();
@@ -49,7 +49,7 @@ void bienvenidaUsuario()
 void bienvenidaAdmin()
 {
     system("cls");
-    printf("\nbienvenido al menu de administrador...\n");
+    printf("\nBienvenido al menu de Administrador! \n");
     Sleep(1000);
 }
 
@@ -61,7 +61,7 @@ void cerrar()
 
 void opcionIncorrecta()
 {
-    printf("Opcion incorrecta vuelva a intentarlo \n");
+    printf("Opcion incorrecta. Vuelva a intentarlo. \n");
     Sleep(1000);
 }
 
@@ -69,41 +69,211 @@ void errorRegistro()
 {
     system("cls");
     printf("\n\n\n");
-    printf("                                              Usted no se registro correctamente! ");
+    printf("                                              Error: registro NO completado con exito. ");
     Sleep(1500);
     system("cls");
     animacionCargando();
-    inicio();
 }
 
 void opcionesMenuUsuario()
 {
-    printf("\n1. Registrar publicacion ");
-    printf("\n2. Buscar publicacion ");
-    printf("\n3. Mostrar detalle de publicacion ");
-    printf("\n4. Clasificar por genero ");
-    printf("\n5. Mostrar publicacion por fecha ");
-    printf("\n5. Mostrar publicacion por fuente ");
-    printf("\n6. Mostrar publicaciones mas populares ");
-    printf("\n7. Guardar y cargar publicaciones ");
-    printf("\n8. Actualizar informacion de publicaciones ");
-    printf("\n9. Elimianr publicaciones ");
-    printf("\n10. Registro de autores ");
-    printf("\n11. Busqueda de autores ");
-    printf("\n12. Mostrar detalles de un autor ");
-    printf("\n13. Generar informes ");
-    printf("\n14. Etiquetado de publicaciones ");
-    printf("\n15. Comentarios y clasificaciones ");
-    printf("\n16. Recomendaciones personalizadas ");
-    printf("\n17. Reservar publicaciones ");
-    printf("\n18. Gestion de prestamos ");
-    printf("\n0 . Salir \n");
+    printf("1. Registrar publicacion(es). \n");
+    printf("2. Buscar publicacion(es). \n");
+    printf("3. Mostrar detalles de publicacion(es). \n");
+    printf("4. Clasificar publicaciones por genero. \n");
+    printf("8. Actualizar informacion de publicacion(es). \n");
+    printf("9. Registro de autores. \n");
+    printf("10. Busqueda de autores por nombre o nacionalidad. \n");
+    printf("11. Mostrar detalles de un autor. \n");
+    printf("12. Comentarios y clasificaciones. \n");
+    printf("13. Reservar publicaciones. \n");
+    printf("0.  Salir. \n");
+    printf("\n\n");
 }
 
+void logo()
+{
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                       :;+;;;;;;:                                                                                   ");
+    printf("                   .+++++++;++++++;:                                                                                ");
+    printf("                  ++++++++++++++++;;;;          .;;;;.                                                              ");
+    printf("                 ++++++++++++++++++;;;;;+:.;;;;;;;;;;;;;:                                                           ");
+    printf("                +++++++++++xxx++++;;;++;;;;;;;;;;;;;;;;;;;                                                          ");
+    printf("              .+++++++++++&&&++++++;+++;;;;;;++;;;;;;;;;++                                                          ");
+    printf("              ;+++++++++++&&&+++++++++;;++xxxxxx+;;;;;++++:     H E M E R O T E C A                                 ");
+    printf("              xx++++++++++;x$+++++++++;+xXX$&&&XXx++++++++:     M U S I C A L               . .;.;;                 ");
+    printf("              x+++++++++++;X$++++++++++xXX&&&&&&$XX+;xx;x++x;x+x+xxx+xxxxxxxxx+XX;X$X$$Xx&&:. .  .:&&;              ");
+    printf("              x+++++++++++;x$+++++++;;+Xx&&&&&&&&&&Xx&$x&XX$+$X$X&$$x$$$&$&$$&x&$+$&$&&$x&&&&&&&&&&&&&              ");
+    printf("              x+++++++++++;X$++++++++++xX+X$$&&&&$$xx$$x$XX$+$X&X&$$x$X$$X$XXX+XX+xxxxx+;&&:. :  :+&&.              ");
+    printf("              xx++++++++++$&&+++++++++++xXxXX$XXXx++++x+++:                                .. .. :.                 ");
+    printf("              ++++++++++++&&&++++++++++++++xXXx+++++++++++:                                                         ");
+    printf("              :+++++++++++&&&+++++++++++++++++++++++++++++                                                          ");
+    printf("               ++++++++++++++++++++++++++++++++++++++++++                                                           ");
+    printf("                +++++++++++++++++++++++;...;+++++++++++.                                                            ");
+    printf("                 ++++++++++++++++++++           ..:.                                                                ");
+    printf("                  .+++xxxxxxxxxx++.                                                                                 ");
+    printf("                     .;++++++;:                                                                                     ");
+    printf("\n\n");
+}
 
+void logo2()
+{
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                       :;+;;;;;;:                                                                                   ");
+    printf("                   .+++++++;++++++;:                          _                                                     ");
+    printf("                  ++++++++++++++++;;;;          .;;;;.       | |                                                    ");
+    printf("                 ++++++++++++++++++;;;;;+:.;;;;;;;;;;;;;:   o  o                                                    ");
+    printf("                +++++++++++xxx++++;;;++;;;;;;;;;;;;;;;;;;;                                                          ");
+    printf("              .+++++++++++&&&++++++;+++;;;;;;++;;;;;;;;;++                                                          ");
+    printf("              ;+++++++++++&&&+++++++++;;++xxxxxx+;;;;;++++:     H E M E R O T E C A                                 ");
+    printf("              xx++++++++++;x$+++++++++;+xXX$&&&XXx++++++++:     M U S I C A L               . .;.;;                 ");
+    printf("              x+++++++++++;X$++++++++++xXX&&&&&&$XX+;xx;x++x;x+x+xxx+xxxxxxxxx+XX;X$X$$Xx&&:. .  .:&&;              ");
+    printf("              x+++++++++++;x$+++++++;;+Xx&&&&&&&&&&Xx&$x&XX$+$X$X&$$x$$$&$&$$&x&$+$&$&&$x&&&&&&&&&&&&&              ");
+    printf("              x+++++++++++;X$++++++++++xX+X$$&&&&$$xx$$x$XX$+$X&X&$$x$X$$X$XXX+XX+xxxxx+;&&:. :  :+&&.              ");
+    printf("              xx++++++++++$&&+++++++++++xXxXX$XXXx++++x+++:                                .. .. :.                 ");
+    printf("              ++++++++++++&&&++++++++++++++xXXx+++++++++++:                                                         ");
+    printf("              :+++++++++++&&&+++++++++++++++++++++++++++++                                                          ");
+    printf("               ++++++++++++++++++++++++++++++++++++++++++                                                           ");
+    printf("                +++++++++++++++++++++++;...;+++++++++++.                                                            ");
+    printf("                 ++++++++++++++++++++           ..:.                                                                ");
+    printf("                  .+++xxxxxxxxxx++.                                                                                 ");
+    printf("                     .;++++++;:                                                                                     ");
+    printf("\n\n");
+}
 
+void logo3()
+{
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                     ||                                             ");
+    printf("                                                                    |                                               ");
+    printf("                       :;+;;;;;;:                                  o                                                ");
+    printf("                   .+++++++;++++++;:                                                                                ");
+    printf("                  ++++++++++++++++;;;;          .;;;;.                                                              ");
+    printf("                 ++++++++++++++++++;;;;;+:.;;;;;;;;;;;;;:                                                           ");
+    printf("                +++++++++++xxx++++;;;++;;;;;;;;;;;;;;;;;;;                                                          ");
+    printf("              .+++++++++++&&&++++++;+++;;;;;;++;;;;;;;;;++                                                          ");
+    printf("              ;+++++++++++&&&+++++++++;;++xxxxxx+;;;;;++++:     H E M E R O T E C A                                 ");
+    printf("              xx++++++++++;x$+++++++++;+xXX$&&&XXx++++++++:     M U S I C A L               . .;.;;                 ");
+    printf("              x+++++++++++;X$++++++++++xXX&&&&&&$XX+;xx;x++x;x+x+xxx+xxxxxxxxx+XX;X$X$$Xx&&:. .  .:&&;              ");
+    printf("              x+++++++++++;x$+++++++;;+Xx&&&&&&&&&&Xx&$x&XX$+$X$X&$$x$$$&$&$$&x&$+$&$&&$x&&&&&&&&&&&&&              ");
+    printf("              x+++++++++++;X$++++++++++xX+X$$&&&&$$xx$$x$XX$+$X&X&$$x$X$$X$XXX+XX+xxxxx+;&&:. :  :+&&.              ");
+    printf("              xx++++++++++$&&+++++++++++xXxXX$XXXx++++x+++:                                .. .. :.                 ");
+    printf("              ++++++++++++&&&++++++++++++++xXXx+++++++++++:                                                         ");
+    printf("              :+++++++++++&&&+++++++++++++++++++++++++++++                                                          ");
+    printf("               ++++++++++++++++++++++++++++++++++++++++++                                                           ");
+    printf("                +++++++++++++++++++++++;...;+++++++++++.                                                            ");
+    printf("                 ++++++++++++++++++++           ..:.                                                                ");
+    printf("                  .+++xxxxxxxxxx++.                                                                                 ");
+    printf("                     .;++++++;:                                                                                     ");
+    printf("\n\n");
+}
 
+void logo4()
+{
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                                __                                  ");
+    printf("                                                                               |--                                  ");
+    printf("                       :;+;;;;;;:                                             ||                                    ");
+    printf("                   .+++++++;++++++;:                                          o                                     ");
+    printf("                  ++++++++++++++++;;;;          .;;;;.                                                              ");
+    printf("                 ++++++++++++++++++;;;;;+:.;;;;;;;;;;;;;:                                                           ");
+    printf("                +++++++++++xxx++++;;;++;;;;;;;;;;;;;;;;;;;                                                          ");
+    printf("              .+++++++++++&&&++++++;+++;;;;;;++;;;;;;;;;++                                                          ");
+    printf("              ;+++++++++++&&&+++++++++;;++xxxxxx+;;;;;++++:     H E M E R O T E C A                                 ");
+    printf("              xx++++++++++;x$+++++++++;+xXX$&&&XXx++++++++:     M U S I C A L               . .;.;;                 ");
+    printf("              x+++++++++++;X$++++++++++xXX&&&&&&$XX+;xx;x++x;x+x+xxx+xxxxxxxxx+XX;X$X$$Xx&&:. .  .:&&;              ");
+    printf("              x+++++++++++;x$+++++++;;+Xx&&&&&&&&&&Xx&$x&XX$+$X$X&$$x$$$&$&$$&x&$+$&$&&$x&&&&&&&&&&&&&              ");
+    printf("              x+++++++++++;X$++++++++++xX+X$$&&&&$$xx$$x$XX$+$X&X&$$x$X$$X$XXX+XX+xxxxx+;&&:. :  :+&&.              ");
+    printf("              xx++++++++++$&&+++++++++++xXxXX$XXXx++++x+++:                                .. .. :.                 ");
+    printf("              ++++++++++++&&&++++++++++++++xXXx+++++++++++:                                                         ");
+    printf("              :+++++++++++&&&+++++++++++++++++++++++++++++                                                          ");
+    printf("               ++++++++++++++++++++++++++++++++++++++++++                                                           ");
+    printf("                +++++++++++++++++++++++;...;+++++++++++.                                                            ");
+    printf("                 ++++++++++++++++++++           ..:.                                                                ");
+    printf("                  .+++xxxxxxxxxx++.                                                                                 ");
+    printf("                     .;++++++;:                                                                                     ");
+    printf("\n\n");
+}
 
+void logo5()
+{
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                       :;+;;;;;;:                                                                                   ");
+    printf("                   .+++++++;++++++;:                                                                                ");
+    printf("                  ++++++++++++++++;;;;          .;;;;.                                 o  o  o                      ");
+    printf("                 ++++++++++++++++++;;;;;+:.;;;;;;;;;;;;;:                               |  |  |                     ");
+    printf("                +++++++++++xxx++++;;;++;;;;;;;;;;;;;;;;;;;                              |__|__|                     ");
+    printf("              .+++++++++++&&&++++++;+++;;;;;;++;;;;;;;;;++                                                          ");
+    printf("              ;+++++++++++&&&+++++++++;;++xxxxxx+;;;;;++++:     H E M E R O T E C A                                 ");
+    printf("              xx++++++++++;x$+++++++++;+xXX$&&&XXx++++++++:     M U S I C A L               . .;.;;                 ");
+    printf("              x+++++++++++;X$++++++++++xXX&&&&&&$XX+;xx;x++x;x+x+xxx+xxxxxxxxx+XX;X$X$$Xx&&:. .  .:&&;              ");
+    printf("              x+++++++++++;x$+++++++;;+Xx&&&&&&&&&&Xx&$x&XX$+$X$X&$$x$$$&$&$$&x&$+$&$&&$x&&&&&&&&&&&&&              ");
+    printf("              x+++++++++++;X$++++++++++xX+X$$&&&&$$xx$$x$XX$+$X&X&$$x$X$$X$XXX+XX+xxxxx+;&&:. :  :+&&.              ");
+    printf("              xx++++++++++$&&+++++++++++xXxXX$XXXx++++x+++:                                .. .. :.                 ");
+    printf("              ++++++++++++&&&++++++++++++++xXXx+++++++++++:                                                         ");
+    printf("              :+++++++++++&&&+++++++++++++++++++++++++++++                                                          ");
+    printf("               ++++++++++++++++++++++++++++++++++++++++++                                                           ");
+    printf("                +++++++++++++++++++++++;...;+++++++++++.                                                            ");
+    printf("                 ++++++++++++++++++++           ..:.                                                                ");
+    printf("                  .+++xxxxxxxxxx++.                                                                                 ");
+    printf("                     .;++++++;:                                                                                     ");
+    printf("\n\n");
+}
 
+void logo6()
+{
+    printf("                                                                                                                    ");
+    printf("                                                                                                                    ");
+    printf("                                                                    ||           __                                 ");
+    printf("                                                                   |            |--                                 ");
+    printf("                       :;+;;;;;;:                                 o            ||                                   ");
+    printf("                   .+++++++;++++++;:                          _                o                                    ");
+    printf("                  ++++++++++++++++;;;;          .;;;;.       | |                       o  o  o                      ");
+    printf("                 ++++++++++++++++++;;;;;+:.;;;;;;;;;;;;;:   o  o                        |  |  |                     ");
+    printf("                +++++++++++xxx++++;;;++;;;;;;;;;;;;;;;;;;;                              |__|__|                     ");
+    printf("              .+++++++++++&&&++++++;+++;;;;;;++;;;;;;;;;++                                                          ");
+    printf("              ;+++++++++++&&&+++++++++;;++xxxxxx+;;;;;++++:     H E M E R O T E C A                                 ");
+    printf("              xx++++++++++;x$+++++++++;+xXX$&&&XXx++++++++:     M U S I C A L               . .;.;;                 ");
+    printf("              x+++++++++++;X$++++++++++xXX&&&&&&$XX+;xx;x++x;x+x+xxx+xxxxxxxxx+XX;X$X$$Xx&&:. .  .:&&;              ");
+    printf("              x+++++++++++;x$+++++++;;+Xx&&&&&&&&&&Xx&$x&XX$+$X$X&$$x$$$&$&$$&x&$+$&$&&$x&&&&&&&&&&&&&              ");
+    printf("              x+++++++++++;X$++++++++++xX+X$$&&&&$$xx$$x$XX$+$X&X&$$x$X$$X$XXX+XX+xxxxx+;&&:. :  :+&&.              ");
+    printf("              xx++++++++++$&&+++++++++++xXxXX$XXXx++++x+++:                                .. .. :.                 ");
+    printf("              ++++++++++++&&&++++++++++++++xXXx+++++++++++:                                                         ");
+    printf("              :+++++++++++&&&+++++++++++++++++++++++++++++                                                          ");
+    printf("               ++++++++++++++++++++++++++++++++++++++++++                                                           ");
+    printf("                +++++++++++++++++++++++;...;+++++++++++.                                                            ");
+    printf("                 ++++++++++++++++++++           ..:.                                                                ");
+    printf("                  .+++xxxxxxxxxx++.                                                                                 ");
+    printf("                     .;++++++;:                                                                                     ");
+    printf("\n\n");
+}
 
-
+void logos()
+{
+    logo();
+    Sleep(350);
+    system("cls");
+    logo2();
+    Sleep(350);
+    system("cls");
+    logo3();
+    Sleep(350);
+    system("cls");
+    logo4();
+    Sleep(350);
+    system("cls");
+    logo5();
+    Sleep(350);
+    system("cls");
+}

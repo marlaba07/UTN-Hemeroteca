@@ -3,25 +3,27 @@
 #include <string.h>
 
 #include "animaciones.h"
-#include "menuPrincipal.h"
 #include "menuAdministrador.h"
 #include "menuUsuario.h"
 #include "usuarios.h"
 #include "archivos.h"
 #include "publicacionMusical.h"
-
-// Constantes para los archivos
-const char archivoUsuarios[] = "Usuarios.bin";
-const char archivoRegistros[] = "Registros.bin";
-const char archivoPublicacion[] = "Publicacion.bin";
+#include "Lista_De_Listas.h"
+#include "arboles.h"
+#include "menuPrincipal.h"
 
 int main()
 {
-    //cargarArchivoRegistro(archivoRegistros);
-    //mostrarArchivoRegistro(archivoRegistros);
-    //system("pause");
+    // Constantes para los archivos
+    char archivoRegistros[20] = "Registros.bin";
+    char archivoUsuarios[20] = "Usuarios.bin";
+
     animacionCargando();
-    menuPrincipal(archivoUsuarios);
+    // logos();
+    // logo6();
+    system("pause");
+    system("cls");
+    menuPrincipal(archivoUsuarios, archivoRegistros);
 
     return 0;
 }

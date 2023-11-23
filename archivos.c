@@ -2,34 +2,111 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <windows.h>
 
 #include "animaciones.h"
-#include "menuPrincipal.h"
-#include "menuAdministrador.h"
-#include "menuUsuario.h"
-#include "usuarios.h"
+#include "arboles.h"
 #include "archivos.h"
+#include "Lista_De_Listas.h"
+#include "menuAdministrador.h"
+#include "menuPrincipal.h"
+#include "menuUsuario.h"
+#include "Pila_Con_Listas_PS.h"
 #include "publicacionMusical.h"
+#include "usuarios.h"
 
 // --- USUARIO --- //
 
 Usuario cargarDatosUnUsuario()
 {
     Usuario aux;
+    char contraProhibida[12] = "admin";
 
     printf("Ingrese su nombre completo: ");
     fflush(stdin);
     fgets(aux.nombreCompleto, sizeof(aux.nombreCompleto), stdin);
+    aux.nombreCompleto[strcspn(aux.nombreCompleto, "\r\n")] = '\0';
 
     printf("Ingrese su e-mail: ");
     fflush(stdin);
     fgets(aux.mail, sizeof(aux.mail), stdin);
+    aux.mail[strcspn(aux.mail, "\r\n")] = '\0';
+
+    printf("Ingrese su genero preferido: ");
+    fflush(stdin);
+    fgets(aux.generoPreferido, sizeof(aux.generoPreferido), stdin);
+    aux.generoPreferido[strcspn(aux.generoPreferido, "\r\n")] = '\0';
 
     printf("Ingrese su contrase%ca: ", 164);
     fflush(stdin);
     fgets(aux.contrasenia, sizeof(aux.contrasenia), stdin);
+    aux.contrasenia[strcspn(aux.contrasenia, "\r\n")] = '\0'; // Elimina el caracter de nueva linea
+
+    while (strcmpi(aux.contrasenia, contraProhibida) == 0)
+    {
+        printf("Error: contrase%ca no valida. Elija otra. \n", 164);
+        fflush(stdin);
+        fgets(aux.contrasenia, sizeof(aux.contrasenia), stdin);
+        aux.contrasenia[strcspn(aux.contrasenia, "\r\n")] = '\0'; // Elimina el caracter de nueva linea
+    }
 
     return aux;
+}
+
+Usuario cargarDatosUnAdmin(char contraAdmin[])
+{
+    Usuario admin;
+
+    printf("Ingrese su nombre completo: ");
+    fflush(stdin);
+    fgets(admin.nombreCompleto, sizeof(admin.nombreCompleto), stdin);
+    admin.nombreCompleto[strcspn(admin.nombreCompleto, "\r\n")] = '\0';
+
+    printf("Ingrese su e-mail: ");
+    fflush(stdin);
+    fgets(admin.mail, sizeof(admin.mail), stdin);
+    admin.mail[strcspn(admin.mail, "\r\n")] = '\0';
+
+    fflush(stdin);
+    strcpy(admin.contrasenia, contraAdmin);
+    printf("Ingrese su contrase%ca: *****\n", 164);
+
+    return admin;
+}
+
+int comprobarExistenciaIDUsuario(FILE *archivo, int i)
+{
+    int iVer = 0;
+    int ids[100]; // Asume que hay un maximo de 100 usuarios
+    int numUsuarios = 0;
+    int idUnico = 0;
+
+    fseek(archivo, 0, SEEK_SET);
+
+    // Lee todos los IDs existentes en el archivo
+    while (fread(&iVer, sizeof(int), 1, archivo) > 0)
+    {
+        ids[numUsuarios] = iVer;
+        numUsuarios++;
+    }
+
+    // Genera un nuevo ID y verifica si ya existe
+    do
+    {
+        idUnico = 1;
+        i = (rand() % 100) + 1;
+
+        for (int j = 0; j < numUsuarios; j++)
+        {
+            if (i == ids[j])
+            {
+                idUnico = 0;
+                break;
+            }
+        }
+    } while (!idUnico);
+
+    return i;
 }
 
 void cargarArchivoUsuarios(char archivoUsuarios[])
@@ -45,13 +122,44 @@ void cargarArchivoUsuarios(char archivoUsuarios[])
         {
             aux = cargarDatosUnUsuario();
             fflush(stdin);
-            aux.id = (rand() % 100) + 1;
+            aux.id = comprobarExistenciaIDUsuario(archivo, aux.id);
 
             fwrite(&aux, sizeof(Usuario), 1, archivo);
 
             printf("Desea seguir cargando usuarios? (s/n): ");
             fflush(stdin);
-            scanf("%c", &seguir);
+            scanf(" %c", &seguir);
+            system("cls");
+        }
+
+        fclose(archivo);
+    }
+    else
+    {
+        printf("Error: no se pudo abrir el archivo. \n");
+    }
+}
+
+void cargarArchivoUsuariosAdmins(char archivoUsuarios[], char contraAdmin[])
+{
+    Usuario aux;
+    char seguir = 's';
+
+    FILE *archivo = fopen(archivoUsuarios, "ab");
+
+    if (archivo != NULL)
+    {
+        while (seguir == 's')
+        {
+            aux = cargarDatosUnAdmin(contraAdmin);
+            fflush(stdin);
+            aux.id = comprobarExistenciaIDUsuario(archivo, aux.id);
+
+            fwrite(&aux, sizeof(Usuario), 1, archivo);
+
+            printf("Desea seguir cargando admins? (s/n): ");
+            fflush(stdin);
+            scanf(" %c", &seguir);
             system("cls");
         }
 
@@ -67,7 +175,7 @@ void mostrarUnUsuario(Usuario dato)
 {
     printf("\n ------------------------------- \n");
     printf(" ID: %d \n", dato.id);
-    printf(" Nombre y apellido: %s", dato.nombreCompleto);
+    printf(" Nombre y apellido: %s\n", dato.nombreCompleto);
     printf(" E-mail: %s ", dato.mail);
     printf("\n ------------------------------- \n");
 }
@@ -104,10 +212,12 @@ datosCadaPublicacion pedirDatosRegistro()
     printf("- Ingrese el titulo: ");
     fflush(stdin);
     fgets(nuevoRegistro.datosPublicacion.titulo, sizeof(nuevoRegistro.datosPublicacion.titulo), stdin);
+    nuevoRegistro.datosPublicacion.titulo[strcspn(nuevoRegistro.datosPublicacion.titulo, "\r\n")] = '\0';
 
     printf("- Ingrese el genero: ");
     fflush(stdin);
     fgets(nuevoRegistro.datosPublicacion.genero, sizeof(nuevoRegistro.datosPublicacion.genero), stdin);
+    nuevoRegistro.datosPublicacion.genero[strcspn(nuevoRegistro.datosPublicacion.genero, "\r\n")] = '\0';
 
     printf("- Ingrese el dia de publicacion: ");
     nuevoRegistro.datosPublicacion.dia = ingresarDia();
@@ -121,27 +231,34 @@ datosCadaPublicacion pedirDatosRegistro()
     printf("- Ingrese el nombre y apellido del autor: ");
     fflush(stdin);
     fgets(nuevoRegistro.datosAutor.nombreYapellido, sizeof(nuevoRegistro.datosAutor.nombreYapellido), stdin);
+    nuevoRegistro.datosAutor.nombreYapellido[strcspn(nuevoRegistro.datosAutor.nombreYapellido, "\r\n")] = '\0';
 
     printf("- Ingrese la nacionalidad del autor: ");
     fgets(nuevoRegistro.datosAutor.nacionalidad, sizeof(nuevoRegistro.datosAutor.nacionalidad), stdin);
+    nuevoRegistro.datosAutor.nacionalidad[strcspn(nuevoRegistro.datosAutor.nacionalidad, "\r\n")] = '\0';
 
     printf("\n- Ingrese la biografia del autor: ");
     fflush(stdin);
     fgets(nuevoRegistro.datosAutor.biografia, sizeof(nuevoRegistro.datosAutor.biografia), stdin);
+    nuevoRegistro.datosAutor.biografia[strcspn(nuevoRegistro.datosAutor.biografia, "\r\n")] = '\0';
 
     printf("\n- Ingrese la descripcion: ");
     fflush(stdin);
     fgets(nuevoRegistro.datosPublicacion.descripcion, sizeof(nuevoRegistro.datosPublicacion.descripcion), stdin);
+    nuevoRegistro.datosPublicacion.descripcion[strcspn(nuevoRegistro.datosPublicacion.descripcion, "\r\n")] = '\0';
 
     printf("\n- Ingrese la primera palabra clave: ");
     fflush(stdin);
     fgets(nuevoRegistro.palabraClave1, sizeof(nuevoRegistro.palabraClave1), stdin);
+    nuevoRegistro.palabraClave1[strcspn(nuevoRegistro.palabraClave1, "\r\n")] = '\0';
 
     printf("- Ingrese la segunda palabra clave: ");
     fflush(stdin);
     fgets(nuevoRegistro.palabraClave2, sizeof(nuevoRegistro.palabraClave2), stdin);
+    nuevoRegistro.palabraClave2[strcspn(nuevoRegistro.palabraClave2, "\r\n")] = '\0';
 
     // Inicializa otros campos si es necesario
+
     nuevoRegistro.opiniones = NULL; // Inicializa la lista de opiniones como vacia
     nuevoRegistro.prestado = 0;     // Por defecto, no prestado
     nuevoRegistro.cantVecesLeida = 0;
@@ -183,15 +300,15 @@ void cargarArchivoPublicacion(char archivoRegistros[])
 void mostrarUnaPublicacion(datosCadaPublicacion dato)
 {
     printf("\n ------------------------------- \n");
-    printf("- Titulo: %s", dato.datosPublicacion.titulo);
-    printf("- Genero: %s", dato.datosPublicacion.genero);
+    printf("- Titulo: %s\n", dato.datosPublicacion.titulo);
+    printf("- Genero: %s\n", dato.datosPublicacion.genero);
     mostrarFecha(dato);
     printf("- Descripcion: %s \n\n", dato.datosPublicacion.descripcion);
-    printf("- Nombre completo del autor: %s", dato.datosAutor.nombreYapellido);
+    printf("- Nombre completo del autor: %s\n", dato.datosAutor.nombreYapellido);
     printf("- Nacionalidad: %s \n", dato.datosAutor.nacionalidad);
     printf("- Biografia: %s \n\n", dato.datosAutor.biografia);
-    printf("- Primer palabra clave: %s", dato.palabraClave1);
-    printf("- Primer palabra clave: %s", dato.palabraClave2);
+    printf("- Primer palabra clave: %s\n", dato.palabraClave1);
+    printf("- Segunda palabra clave: %s\n", dato.palabraClave2);
     printf("- Prestado (1 = si | 0 = no): %d \n", dato.prestado);
     printf("- Fuente de informacion: %s \n", dato.fuente);
     printf("- Veces leidas: %d", dato.cantVecesLeida);
@@ -221,151 +338,95 @@ void mostrarArchivoPublicacion(char archivoRegistros[])
 }
 
 // --- FUNCIONES DE BUSQUEDA --- //
-// Funcion para buscar por titulo en el archivo
-int buscarPorTitulo(char archivoRegistros[], char tituloABuscar[], datosCadaPublicacion publicacionEncontrada)
+// Funcion para buscar por titulo
+void mostrarPublicacionXTitulo(lista_de_listas *listaPublicaciones, char tituloABuscar[])
 {
-    FILE *archivo;
-    int encontrado = 0;
+    lista_de_listas *seg = listaPublicaciones;
 
-    // Abre el archivo en modo lectura binaria
-    archivo = fopen(archivoRegistros, "rb");
-
-    // Verifica si el archivo se abrio correctamente
-    if (archivo == NULL)
+    while (seg != NULL)
     {
-        printf("No se pudo abrir el archivo.\n");
-    }
+        nodo_sublista_simple *nodoActual = listaPublicaciones->listaDatosPublicaciones;
 
-    // Leer cada registro del archivo
-    while (fread(&publicacionEncontrada, sizeof(datosCadaPublicacion), 1, archivo) == 1)
-    {
-        // Compara el titulo del registro actual con el totulo buscado
-        if (strcmp(publicacionEncontrada.datosPublicacion.titulo, tituloABuscar) == 0)
+        while (nodoActual != NULL)
         {
-            encontrado = 1;
-            break; // Si se encuentra, se sale del bucle
-        }
-    }
-
-    // Cierra el archivo despues de usarlo
-    fclose(archivo);
-
-    return encontrado; // Devuelve 1 si se encontro, 0 si no se encontro
-}
-
-// Funcion para mostrar el registro encontrado
-void mostrarRegistro(datosCadaPublicacion registro)
-{
-    printf("Registro encontrado:\n");
-    printf("Titulo: %s\n", registro.datosPublicacion.titulo);
-    printf("Autor: %s\n", registro.datosAutor.nombreYapellido);
-    printf("\n");
-}
-
-// Funcion principal que busca y muestra un registro por titulo
-void buscarYMostrarPorTitulo(char archivoRegistros[], char tituloABuscar[])
-{
-    datosCadaPublicacion publicacionEncontrada;
-
-    // Llama a la funcion para buscar por titulo
-    if (buscarPorTitulo(archivoRegistros, tituloABuscar, publicacionEncontrada))
-    {
-        // Si se encontro, muestra el registro
-        mostrarRegistro(publicacionEncontrada);
-    }
-    else
-    {
-        // Si no se encontro, muestra un mensaje
-        printf("Registro no encontrado.\n");
-    }
-}
-
-// Funcion para buscar por autor en el archivo
-void mostrarPublicacionXAutor(char archivoRegistros[], char autorABuscar[])
-{
-    int cantVL = 0;
-    datosCadaPublicacion data;
-
-    FILE *archivo = fopen(archivoRegistros, "r+b");
-
-    if (archivo != NULL)
-    {
-        fseek(archivo, 0, SEEK_SET);
-
-        // Leer todos los datos y almacenarlos en una lista
-        while (fread(&data, sizeof(datosCadaPublicacion), 1, archivo) > 0)
-        {
-            if (strcmpi(data.datosAutor.nombreYapellido, autorABuscar) == 0)
+            if (strcmpi(nodoActual->miRegistro.datosPublicacion.titulo, tituloABuscar) == 0)
             {
-                mostrarUnaPublicacion(data);
-                cantVL++;
-                printf("\n");
-
-                printf("\n");
+                mostrarUnaPublicacion(nodoActual->miRegistro);
             }
+
+            nodoActual = nodoActual->siguiente;
         }
-        fclose(archivo);
-    }
-    else
-    {
-        printf("Error: no se pudo abrir el archivo. \n");
+
+        seg = seg->siguiente;
     }
 }
 
-// Funcion para buscar por fecha en el archivo
-void mostrarPublicacionXFecha(char registroArchivos[], int anio1, int anio2)
+// Funcion para buscar por autor
+void mostrarPublicacionXAutor(lista_de_listas *listaPublicaciones, char autorABuscar[])
 {
-    int cantVL = 0;
-    datosCadaPublicacion data;
+    lista_de_listas *seg = listaPublicaciones;
 
-    FILE *archivo = fopen(registroArchivos, "r+b");
-
-    if (archivo != NULL)
+    while (seg != NULL)
     {
-        fseek(archivo, 0, SEEK_SET);
+        nodo_sublista_simple *nodoActual = listaPublicaciones->listaDatosPublicaciones;
 
-        while (fread(&data, sizeof(datosCadaPublicacion), 1, archivo) > 0)
+        while (nodoActual != NULL)
         {
-            if ((data.datosPublicacion.anio > anio1) && (data.datosPublicacion.anio < anio2))
+            if (strcmpi(nodoActual->miRegistro.datosAutor.nombreYapellido, autorABuscar) == 0)
             {
-                mostrarUnaPublicacion(data);
-                cantVL++;
-                printf("\n");
+                mostrarUnaPublicacion(nodoActual->miRegistro);
             }
+
+            nodoActual = nodoActual->siguiente;
         }
 
-        fclose(archivo);
-    }
-    else
-    {
-        printf("Error: no se pudo abrir el archivo. \n");
+        listaPublicaciones = listaPublicaciones->siguiente;
     }
 }
 
-// Funcion para buscar por palabra calve en el archivo
-void buscarPorPalabraClave(char archivoRegistros[], char palabraClave[])
+// Funcion para buscar por fecha
+void mostrarPublicacionXFecha(lista_de_listas *listaPublicaciones, int anio1, int anio2)
 {
-    FILE *archivo = fopen(archivoRegistros, "rb");
+    lista_de_listas *seg = listaPublicaciones;
 
-    if (archivo == NULL)
+    while (seg != NULL)
     {
-        printf("No se pudo abrir el archivo.\n");
-    }
+        nodo_sublista_simple *nodoActual = listaPublicaciones->listaDatosPublicaciones;
 
-    // Leer registros del archivo
-    datosCadaPublicacion registro;
-
-    while (fread(&registro, sizeof(datosCadaPublicacion), 1, archivo) == 1)
-    {
-        // Realizar la comparacion de la palabra clave con las palabras clave en la estructura
-        if (((strstr(registro.palabraClave1, palabraClave) != NULL) || (strstr(registro.palabraClave2, palabraClave) != NULL)))
+        while (nodoActual != NULL)
         {
-            // Mostrar o realizar acciones con el registro que contiene la palabra clave
-            printf("Palabra clave encontrada en:\n");
-            printf("Titulo: %s\n", registro.datosPublicacion.titulo);
-            printf("Autor: %s\n", registro.datosAutor.nombreYapellido);
-            printf("\n");
+            if ((nodoActual->miRegistro.datosPublicacion.anio >= anio1) && (nodoActual->miRegistro.datosPublicacion.anio <= anio2))
+            {
+                mostrarUnaPublicacion(nodoActual->miRegistro);
+            }
+
+            nodoActual = nodoActual->siguiente;
         }
+
+        seg = seg->siguiente;
+    }
+}
+
+// Funcion para buscar por palabra clave
+void mostrarPublicacionXPalabraClave(lista_de_listas *listaPublicaciones, char palabraClave[])
+{
+    lista_de_listas *seg = listaPublicaciones;
+
+    while (seg != NULL)
+    {
+        nodo_sublista_simple *nodoActual = listaPublicaciones->listaDatosPublicaciones;
+
+        while (nodoActual != NULL)
+        {
+            if ((strcmpi(nodoActual->miRegistro.palabraClave1, palabraClave) == 0) || (strcmpi(nodoActual->miRegistro.palabraClave2, palabraClave) == 0))
+            {
+                mostrarUnaPublicacion(nodoActual->miRegistro);
+            }
+
+            nodoActual = nodoActual->siguiente;
+        }
+
+        seg = seg->siguiente;
     }
 }
 
@@ -417,23 +478,31 @@ void actualizarInformacionPublicacion(char nombreArchivo[], int posicion)
         switch (opcion)
         {
         case 1:
+        {
             printf("Ingrese el nuevo titulo: ");
             fflush(stdin);
             fgets(aux.datosPublicacion.titulo, sizeof(aux.datosPublicacion.titulo), stdin);
             break;
+        }
         case 2:
-            printf("Ingrese la nueva descripcion: ");
-            fflush(stdin);
-            fgets(aux.datosAutor.nombreYapellido, sizeof(aux.datosAutor.nombreYapellido), stdin);
-            break;
-        case 3:
+        {
             printf("Ingrese el nuevo autor: ");
             fflush(stdin);
             fgets(aux.datosAutor.nombreYapellido, sizeof(aux.datosAutor.nombreYapellido), stdin);
             break;
+        }
+        case 3:
+        {
+            printf("Ingrese la nueva descripcion: ");
+            fflush(stdin);
+            fgets(aux.datosAutor.nombreYapellido, sizeof(aux.datosAutor.nombreYapellido), stdin);
+            break;
+        }
         default:
+        {
             printf("Opcion no valida.\n");
             break;
+        }
         }
 
         fseek(archivo, posicion * sizeof(datosCadaPublicacion), SEEK_SET); // Mover el puntero al inicio del registro a actualizar en el archivo
@@ -577,8 +646,9 @@ void mostrarDatosAutorXNombre(char archivoRegistros[], char autorABuscar[])
 
 // --- FUNCIONES PARA BORRAR UNA PUBLICACION --- //
 // Funcion para borrar una publicacion por el nombre del autor
-void borrarUnaPublicacionXAutor(char archivoRegistros[], char autorABorrar[])
+int borrarUnaPublicacionXAutor(char archivoRegistros[], char autorABorrar[])
 {
+    int rta = 0;
     datosCadaPublicacion dataAux;
     FILE *archivo = fopen(archivoRegistros, "rb");
     FILE *archAux = fopen("copiaArchRegistros.bin", "wb");
@@ -590,6 +660,7 @@ void borrarUnaPublicacionXAutor(char archivoRegistros[], char autorABorrar[])
             if (strcmpi(dataAux.datosAutor.nombreYapellido, autorABorrar) == 0)
             {
                 fwrite(&dataAux, sizeof(datosCadaPublicacion), 1, archAux);
+                rta = 1;
             }
         }
 
@@ -603,11 +674,13 @@ void borrarUnaPublicacionXAutor(char archivoRegistros[], char autorABorrar[])
     {
         printf("Error: no se pudieron abrir los archivos. \n");
     }
+    return rta;
 }
 
 // Funcion para borrar una publicacion por el nombre del titulo de la misma
-void borrarUnaPublicacionXTitulo(char archivoRegistros[], char tituloABorrar[])
+int borrarUnaPublicacionXTitulo(char archivoRegistros[], char tituloABorrar[])
 {
+    int rta2 = 0;
     datosCadaPublicacion dataAux;
     FILE *archivo = fopen(archivoRegistros, "rb");
     FILE *archAux = fopen("copiaArchRegistros.bin", "wb");
@@ -619,6 +692,7 @@ void borrarUnaPublicacionXTitulo(char archivoRegistros[], char tituloABorrar[])
             if (strcmpi(dataAux.datosPublicacion.titulo, tituloABorrar) == 0)
             {
                 fwrite(&dataAux, sizeof(datosCadaPublicacion), 1, archAux);
+                rta2 = 1;
             }
         }
 
@@ -632,37 +706,39 @@ void borrarUnaPublicacionXTitulo(char archivoRegistros[], char tituloABorrar[])
     {
         printf("Error: no se pudieron abrir los archivos. \n");
     }
+    return rta2;
 }
 
 // --- AGREGAR OPINIONES Y COMENTARIOS --- //
 // Funcion para que los usuarios agreguen comentarios y calificaciones
 void agregarOpinion(datosCadaPublicacion registro)
 {
-    // Verificar si la lista de opiniones esta inicializada
+    // Se verifica si la lista de opiniones esta inicializada
     if (registro.opiniones == NULL)
     {
-        // Inicializar la lista de opiniones si no esta inicializada
+        // Se inicializa la lista de opiniones si no esta inicializada
         registro.opiniones = (nodo_lista_comentarios *)malloc(sizeof(nodo_lista_comentarios));
         registro.opiniones->siguiente = NULL;
     }
     else
     {
-        // Agregar una nueva opinion al final de la lista
+        // Se agrega una nueva opinion al final de la lista
         nodo_lista_comentarios *nuevaOpinion = (nodo_lista_comentarios *)malloc(sizeof(nodo_lista_comentarios));
         nuevaOpinion->siguiente = NULL;
 
-        // Solicitar comentarios y calificaciones al usuario
+        // Se solicita comentarios y calificaciones al usuario
         printf("Ingrese sus comentarios: ");
-        scanf(" %[^\n]", nuevaOpinion->comentarios);
+        scanf(" %s", nuevaOpinion->comentarios);
 
         printf("Ingrese su calificacion (0 to 5): ");
         scanf("%d", &nuevaOpinion->calificacion);
 
-        // Mostrar mensaje de exito
+        // Se muestra un mensaje de exito
         printf("Opinion agregada con exito.\n");
 
-        // Enlazar la nueva opinion al final de la lista
+        // Se enlazaa la nueva opinion al final de la lista
         nodo_lista_comentarios *actual = registro.opiniones;
+
         while (actual->siguiente != NULL)
         {
             actual = actual->siguiente;
@@ -672,7 +748,7 @@ void agregarOpinion(datosCadaPublicacion registro)
     }
 }
 
-// Funcion para buscar un registro en particular por titulo
+// Funcion para buscar una publicacion por titulo en el archivo
 void buscarParaComentar(char archivoRegistros[], char tituloBuscado[])
 {
     FILE *archivo = fopen(archivoRegistros, "rb");

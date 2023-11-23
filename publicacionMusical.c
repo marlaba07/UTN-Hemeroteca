@@ -1,14 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <windows.h>
 
 #include "animaciones.h"
-#include "menuPrincipal.h"
-#include "menuAdministrador.h"
-#include "menuUsuario.h"
-#include "usuarios.h"
+#include "arboles.h"
 #include "archivos.h"
+#include "Lista_De_Listas.h"
+#include "menuAdministrador.h"
+#include "menuPrincipal.h"
+#include "menuUsuario.h"
+#include "Pila_Con_Listas_PS.h"
 #include "publicacionMusical.h"
+#include "usuarios.h"
 
 int esBisiesto(int anio)
 {
@@ -20,8 +25,11 @@ int esBisiesto(int anio)
 int ingresarDia()
 {
     int dia;
+
     do
     {
+        dia = 0;
+
         scanf("%d", &dia);
 
         if (dia < 1 || dia > 31)
@@ -40,6 +48,8 @@ int ingresarMes()
     int mes;
     do
     {
+        mes = 0;
+
         scanf("%d", &mes);
 
         if (mes < 1 || mes > 12)
@@ -58,6 +68,8 @@ int ingresarAnio()
     int anio;
     do
     {
+        anio = 0;
+
         scanf("%d", &anio);
 
         if (anio < 0 || anio > 2023)

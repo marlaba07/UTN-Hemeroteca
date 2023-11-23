@@ -1,5 +1,11 @@
 #ifndef ARBOLES_H_INCLUDED
 #define ARBOLES_H_INCLUDED
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <windows.h>
+
 #include "usuarios.h"
 
 typedef struct nodo_arbol

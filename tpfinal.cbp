@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Lista_De_Listas.h" />
+		<Unit filename="Pila_Con_Listas_PS.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Pila_Con_Listas_PS.h" />
 		<Unit filename="animaciones.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
 #include <string.h>
-#include <conio.h>
+#include <time.h>
+#include <windows.h>
 
-#include "arboles.h"
 #include "animaciones.h"
-#include "menuPrincipal.h"
-#include "menuAdministrador.h"
-#include "menuUsuario.h"
-#include "usuarios.h"
+#include "arboles.h"
 #include "archivos.h"
+#include "Lista_De_Listas.h"
+#include "menuAdministrador.h"
+#include "menuPrincipal.h"
+#include "menuUsuario.h"
+#include "Pila_Con_Listas_PS.h"
 #include "publicacionMusical.h"
+#include "usuarios.h"
 
 // INICIALIZAR ARBOL
 nodo_arbol *inic_arbol()
@@ -208,6 +210,3 @@ nodo_arbol *borrar_nodo_arbol(nodo_arbol *arbol, int dato)
     }
     return arbol;
 }
-
-
-

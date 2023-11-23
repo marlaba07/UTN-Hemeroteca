@@ -1,36 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <windows.h>
+
+#include "animaciones.h"
+#include "arboles.h"
+#include "archivos.h"
+#include "Lista_De_Listas.h"
+#include "menuAdministrador.h"
+#include "menuPrincipal.h"
+#include "menuUsuario.h"
+#include "Pila_Con_Listas_PS.h"
+#include "publicacionMusical.h"
+#include "usuarios.h"
 
 #define RESET_COLOR "\x1b[0m"
 #define CYAN_F "\x1b[46m"
 #define NEGRO_T "\x1b[30m"
 #define ROJO_F "\x1b[41m"
 
-#include "animaciones.h"
-#include "menuPrincipal.h"
-#include "menuAdministrador.h"
-#include "menuUsuario.h"
-#include "usuarios.h"
-#include "archivos.h"
-#include "publicacionMusical.h"
-#include "Lista_De_Listas.h"
-
-nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsuario *lista)
+nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsuario *listaUsuarios, char archivoUsuarios[], char archivoRegistros[], char archivoAutores[])
 {
     int opcion = 0;
-    char seguir = 's';
-    char archivoRegistros[20] = "Registros.bin";
 
     lista_de_listas *listaPrincipal = inicListaDelistas();
+    listaPrincipal = archivo2ListaDeListas(archivoRegistros, listaPrincipal); // El archivo ya va a estar cargado con publicaciones. Se traen del archivo esos datos 1 vez.
 
-    while (seguir == 's')
+    while (opcion != 12)
     {
         system("cls");
-        bienvenidaUsuario();
+        // bienvenidaUsuario();
         opcionesMenuUsuario();
 
         printf("Seleccione una opcion del menu: ");
+        fflush(stdin);
         scanf("%d", &opcion);
         system("cls");
 
@@ -48,11 +52,12 @@ nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsua
             int case2Opt = 0;
             char continuar = 's';
             char autorABuscar[20];
-
-            printf("Seleccione el criterio de busqueda: \n");
+            char tituloABuscar[30];
+            char palabraClaveABuscar[20];
 
             do
             {
+                printf("Seleccione el criterio de busqueda: \n");
                 printf("1. Por titulo. \n");
                 printf("2. Por autor. \n");
                 printf("3. Por fecha. \n");
@@ -67,6 +72,13 @@ nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsua
                 {
                 case 1:
                 {
+                    printf("Ingrese el titulo de la publicacion a buscar: ");
+                    fflush(stdin);
+                    fgets(tituloABuscar, sizeof(tituloABuscar), stdin);
+                    tituloABuscar[strcspn(tituloABuscar, "\r\n")] = '\0';
+
+                    mostrarPublicacionXTitulo(listaPrincipal, tituloABuscar);
+
                     break;
                 }
                 case 2:
@@ -74,8 +86,9 @@ nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsua
                     printf("Ingrese el nombre del autor a buscar: ");
                     fflush(stdin);
                     fgets(autorABuscar, sizeof(autorABuscar), stdin);
+                    autorABuscar[strcspn(autorABuscar, "\r\n")] = '\0';
 
-                    mostrarPublicacionXAutor(archivoRegistros, autorABuscar);
+                    mostrarPublicacionXAutor(listaPrincipal, autorABuscar);
 
                     break;
                 }
@@ -111,12 +124,24 @@ nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsua
                         }
                     }
 
-                    mostrarPublicacionXFecha(archivoRegistros, anio1, anio2);
+                    mostrarPublicacionXFecha(listaPrincipal, anio1, anio2);
 
                     break;
                 }
                 case 4:
                 {
+                    printf("Ingrese la palabra clave a buscar: ");
+                    fflush(stdin);
+                    fgets(palabraClaveABuscar, sizeof(palabraClaveABuscar), stdin);
+                    palabraClaveABuscar[strcspn(palabraClaveABuscar, "\r\n")] = '\0';
+
+                    mostrarPublicacionXPalabraClave(listaPrincipal, palabraClaveABuscar);
+
+                    break;
+                }
+                case 5:
+                {
+                    animacionSaliendo();
                     break;
                 }
                 default:
@@ -125,7 +150,7 @@ nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsua
                 }
                 }
 
-                printf("Desea volver al menu anterior? (s/n): \n");
+                printf("Desea volver al menu de busqueda de publicacion? (s/n): \n");
                 fflush(stdin);
                 scanf("%c", &continuar);
                 system("cls");
@@ -142,31 +167,27 @@ nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsua
             system("pause");
             system("cls");
 
+            break;
+        }
+        case 4:
+        {
             printf("" CYAN_F NEGRO_T "INFORMACION EN LISTA DE LISTAS: " RESET_COLOR);
             recorrerYmostrarListaDeListas(listaPrincipal); // Muestro la lista
 
             system("pause");
             system("cls");
-
             break;
         }
-        case 4:
-            break;
         case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            break;
-        case 8:
         {
-            char tituloBuscar[50];
+            char tituloAActualizar[30];
 
             printf("Ingrese el titulo de la publicacion a actualizar: ");
             fflush(stdin);
-            fgets(tituloBuscar, sizeof(tituloBuscar), stdin);
+            fgets(tituloAActualizar, sizeof(tituloAActualizar), stdin);
+            tituloAActualizar[strcspn(tituloAActualizar, "\r\n")] = '\0';
 
-            int posicion = buscarRegistro(archivoRegistros, tituloBuscar); // Busca el registro en el archivo
+            int posicion = buscarRegistro(archivoRegistros, tituloAActualizar); // Busca el registro en el archivo
 
             if (posicion != -1)
             {
@@ -176,32 +197,171 @@ nodoListaUsuario *menuUsuario(nodoListaUsuario *usuarioEncontrado, nodoListaUsua
             else
             {
                 printf("Publicacion no encontrada.\n");
+                Sleep(800);
+                system("cls");
             }
+            break;
+        }
+        case 6:
+        {
+            nuevoAutor(archivoAutores);
+            break;
+        }
+        case 7:
+        {
+            int case7Opt = 0;
+            char continuar = 's';
+            char autorAMostrar[20];
+            char nacionalidadAutorAMostrar[30];
+
+            do
+            {
+                printf("Seleccione el criterio de busqueda: ");
+                printf("1. Por nombre. \n");
+                printf("2. Por nacionalidad. \n");
+                printf("3. Salir. \n");
+                printf("\n");
+                fflush(stdin);
+                scanf("%i", &case7Opt);
+                system("cls");
+
+                switch (case7Opt)
+                {
+                case 1:
+                {
+                    printf("Ingrese el nombre del autor a mostrar: ");
+                    fflush(stdin);
+                    fgets(autorAMostrar, sizeof(autorAMostrar), stdin);
+                    autorAMostrar[strcspn(autorAMostrar, "\r\n")] = '\0';
+
+                    mostrarDatosAutorXNombre(archivoRegistros, autorAMostrar);
+
+                    break;
+                }
+                case 2:
+                {
+                    printf("Ingrese la nacionalidad del autor a mostrar: ");
+                    fflush(stdin);
+                    fgets(nacionalidadAutorAMostrar, sizeof(nacionalidadAutorAMostrar), stdin);
+                    nacionalidadAutorAMostrar[strcspn(nacionalidadAutorAMostrar, "\r\n")] = '\0';
+
+                    mostrarDatosAutorXNacionalidad(archivoRegistros, nacionalidadAutorAMostrar);
+
+                    break;
+                }
+                case 3:
+                {
+                    animacionSaliendo();
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+                }
+
+                printf("Desea volver al menu de busqueda de autor? (s/n): \n");
+                fflush(stdin);
+                scanf("%c", &continuar);
+                printf("cls");
+
+            } while ((continuar == 's') || (continuar == 'S'));
+
+            break;
+        }
+        case 8:
+        {
+            char tituloAComentar[20];
+
+            printf("Ingrese el titulo de la publicacion que desea comentar: ");
+            fflush(stdin);
+            fgets(tituloAComentar, sizeof(tituloAComentar), stdin);
+            tituloAComentar[strcspn(tituloAComentar, "\r\n")] = '\0';
+
+            buscarParaComentar(archivoRegistros, tituloAComentar);
 
             break;
         }
         case 9:
-            break;
-        case 10:
-            break;
-        case 11:
-            break;
-        case 12:
-            break;
-        case 13:
-            break;
-        case 14:
-            break;
-        case 15:
-            break;
-        default:
+        {
+            Pila pila;
+            inicializarPila(&pila);
+
+            mostrarPublicacionesPopulares(listaPrincipal, &pila);
+            system("pause");
+            system("cls");
+
             break;
         }
+        case 10:
+        {
+            datosCadaPublicacion pubEnc;
+            char emailUsuarioReserva[30];
+            char publicacionAReservar[30];
+            char genPublicacionAReservar[30];
 
-        printf("Desea continuar? (s/n): ");
-        fflush(stdin);
-        scanf("%c", &seguir);
+            printf("Ingrese el genero y el titulo de la publicacion a reservar: \n");
+            printf("Genero:");
+            fflush(stdin);
+            fgets(genPublicacionAReservar, sizeof(genPublicacionAReservar), stdin);
+            genPublicacionAReservar[strcspn(genPublicacionAReservar, "\r\n")] = '\0';
+
+            printf("Titulo:");
+            fflush(stdin);
+            fgets(publicacionAReservar, sizeof(publicacionAReservar), stdin);
+            publicacionAReservar[strcspn(publicacionAReservar, "\r\n")] = '\0';
+
+            int rta = reservarPublicacion(listaPrincipal, publicacionAReservar, genPublicacionAReservar, &pubEnc);
+
+            if ((rta == 1) && (pubEnc.prestado == 0))
+            {
+                printf("Publicacion encontrada. ");
+                Sleep(800);
+                system("cls");
+                printf("Ingrese su e-mail para validar la reserva: ");
+                fflush(stdin);
+                fgets(emailUsuarioReserva, sizeof(emailUsuarioReserva), stdin);
+                emailUsuarioReserva[strcspn(emailUsuarioReserva, "\r\n")] = '\0';
+
+                listaUsuarios = agregarPublicacionAHistorial(&listaPrincipal, listaUsuarios, emailUsuarioReserva, &pubEnc);
+                mostrarListaDeUsuarios(listaUsuarios);
+                system("pause");
+                system("cls");
+                recorrerYmostrarListaDeListas(listaPrincipal);
+                system("pause");
+                system("cls");
+            }
+            else if (rta == 0)
+            {
+                printf("Publicacion no encontrada. \n");
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                printf("Esta publicacion ya se encuentra reservada por otro usuario. \n");
+                system("pause");
+                system("cls");
+            }
+
+            break;
+        }
+        case 11:
+        {
+            obtenerRecomendaciones(listaPrincipal, usuarioEncontrado->datosLogin.generoPreferido);
+            break;
+        }
+        case 12:
+        {
+            animacionSaliendo();
+            break;
+        }
+        default:
+        {
+            defaultCaseMenuUsuario();
+            break;
+        }
+        }
     }
-
-    return lista;
+    return listaUsuarios;
 }

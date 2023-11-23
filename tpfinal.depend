@@ -591,3 +591,246 @@
 	"archivos.h"
 	"publicacionMusical.h"
 
+1700692792 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\animaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700692711 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\animaciones.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1700691236 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\arboles.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"usuarios.h"
+
+1700691360 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\usuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"publicacionMusical.h"
+	"Lista_De_Listas.h"
+
+1700691276 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\publicacionmusical.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1700691246 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\lista_de_listas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1700691223 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\archivos.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1700691253 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\menuadministrador.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"usuarios.h"
+
+1700692664 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\menuprincipal.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1700691265 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\menuusuario.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1700691716 c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\pila_con_listas_ps.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"Lista_De_Listas.h"
+	"publicacionMusical.h"
+
+1700690232 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\arboles.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700690847 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\archivos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700690244 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\lista_de_listas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700634657 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"animaciones.h"
+	"menuAdministrador.h"
+	"menuUsuario.h"
+	"usuarios.h"
+	"archivos.h"
+	"publicacionMusical.h"
+	"Lista_De_Listas.h"
+	"arboles.h"
+	"menuPrincipal.h"
+
+1700693473 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\menuadministrador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700692821 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\menuprincipal.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700697250 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\menuusuario.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700690274 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\publicacionmusical.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+
+1700692374 source:c:\users\mariano\desktop\utn-hemeroteca\utn-hemeroteca\usuarios.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<windows.h>
+	"animaciones.h"
+	"arboles.h"
+	"archivos.h"
+	"Lista_De_Listas.h"
+	"menuAdministrador.h"
+	"menuPrincipal.h"
+	"menuUsuario.h"
+	"Pila_Con_Listas_PS.h"
+	"publicacionMusical.h"
+	"usuarios.h"
+

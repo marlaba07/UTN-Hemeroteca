@@ -1,5 +1,10 @@
 #ifndef PUBLICACIONMUSICAL_H_INCLUDED
 #define PUBLICACIONMUSICAL_H_INCLUDED
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <windows.h>
 
 // INFORMACION QUE SE GUARDA EN ARCHIVO "REGISTROS.BIN"
 typedef struct

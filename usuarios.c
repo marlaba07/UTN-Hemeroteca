@@ -1,14 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <windows.h>
 
-#include "publicacionMusical.h"
 #include "animaciones.h"
-#include "menuPrincipal.h"
-#include "menuAdministrador.h"
-#include "menuUsuario.h"
-#include "usuarios.h"
+#include "arboles.h"
 #include "archivos.h"
+#include "Lista_De_Listas.h"
+#include "menuAdministrador.h"
+#include "menuPrincipal.h"
+#include "menuUsuario.h"
+#include "Pila_Con_Listas_PS.h"
+#include "publicacionMusical.h"
+#include "usuarios.h"
+
+#define RESET_COLOR "\x1b[0m"
+#define CYAN_F "\x1b[46m"
+#define NEGRO_T "\x1b[30m"
+#define ROJO_F "\x1b[41m"
 
 // --- LISTA DE USUARIOS (SIN HISTORIAL) --- //
 nodoHistorial *inicListaHistorial()
@@ -62,7 +72,7 @@ nodoListaUsuario *agregarPrincipioUsuario(nodoListaUsuario *lista, nodoListaUsua
     return lista;
 }
 
-nodoListaUsuario *buscarUsuario(nodoListaUsuario *lista, int id)
+nodoListaUsuario *buscarUsuarioXID(nodoListaUsuario *lista, int id)
 {
     nodoListaUsuario *seg = lista;
     nodoListaUsuario *usuarioEncontrado = NULL;
@@ -84,29 +94,25 @@ nodoListaUsuario *buscarUsuario(nodoListaUsuario *lista, int id)
     return usuarioEncontrado;
 }
 
-/*
-nodoHistorial *cargarDatosPublicacionesParaUsuario(char archivoRegistros[], nodoHistorial *lista)
+nodoListaUsuario *buscarUsuarioXEmail(nodoListaUsuario *lista, char correo[30])
 {
-    datosCadaPublicacion data;
+    nodoListaUsuario *seg = lista;
+    nodoListaUsuario *usuarioEncontrado = NULL;
 
-    FILE *archivo = fopen(archivoRegistros, "rb");
+    int flag = 0;
 
-    if (archivo != NULL)
+    while ((seg != NULL) && (flag == 0))
     {
-        fseek(archivo, 0, SEEK_SET);
-
-        while (fread(&data, sizeof(datosCadaPublicacion), 1, archivo) > 0)
+        if (strcmp(seg->datosLogin.mail, correo) == 0)
         {
-            nodoHistorial *nuevo = crearNodoHistorial(data);
-            lista = agregarFinalHistorial(lista, nuevo);
+            usuarioEncontrado = seg;
+            flag = 1;
         }
-        fclose(archivo);
+
+        seg = seg->sig;
     }
-    else
-    {
-        printf("Error: no se pudo abrir el archivo. \n");
-    }
-    return lista;
+
+    return usuarioEncontrado;
 }
 
 nodoHistorial *agregarFinalHistorial(nodoHistorial *lista, nodoHistorial *nuevoNodo)
@@ -128,9 +134,38 @@ nodoHistorial *agregarFinalHistorial(nodoHistorial *lista, nodoHistorial *nuevoN
     return lista;
 }
 
+nodoListaUsuario *agregarPublicacionAHistorial(lista_de_listas **listaPublicaciones, nodoListaUsuario *listaUsuarios, char emailUsuario[], datosCadaPublicacion *nuevaPublicacion)
+{
+    nodoListaUsuario *usuarioEncontrado = buscarUsuarioXEmail(listaUsuarios, emailUsuario);
+
+    if (usuarioEncontrado != NULL)
+    {
+        nodoHistorial *nuevoHistorial = crearNodoHistorial(*nuevaPublicacion);
+
+        if (nuevoHistorial->dato.prestado == 0)
+        {
+            nuevoHistorial->dato.prestado = 1;
+        }
+
+        nuevoHistorial->dato.cantVecesLeida++;
+        actualizarCantVecesLeidasYPrestamoDePublicacion(*listaPublicaciones, nuevoHistorial->dato.datosPublicacion.genero, nuevoHistorial->dato.datosPublicacion.titulo);
+
+        usuarioEncontrado->listaHistorial = agregarFinalHistorial(usuarioEncontrado->listaHistorial, nuevoHistorial);
+        printf("Publicacion agregada al historial de %s.\n", usuarioEncontrado->datosLogin.nombreCompleto);
+        system("pause");
+    }
+    else
+    {
+        printf("El usuario con email %s no se ha encontrado. \n", emailUsuario);
+        system("pause");
+    }
+
+    return listaUsuarios;
+}
+
 nodoListaUsuario *altaUsuario(char archivoRegistros[], nodoListaUsuario *lista, nodoListaUsuario *nuevoNodo)
 {
-    nodoListaUsuario *usuarioEncontrado = buscarUsuario(lista, nuevoNodo->datosLogin.id);
+    nodoListaUsuario *usuarioEncontrado = buscarUsuarioXID(lista, nuevoNodo->datosLogin.id);
 
     if (usuarioEncontrado == NULL)
     {
@@ -139,7 +174,6 @@ nodoListaUsuario *altaUsuario(char archivoRegistros[], nodoListaUsuario *lista, 
 
     return lista;
 }
-*/
 
 nodoListaUsuario *archivo2ListaDeListasUsuarios(char archivoUsuarios[], char archivoRegistros[], nodoListaUsuario *lista)
 {
@@ -166,62 +200,81 @@ nodoListaUsuario *archivo2ListaDeListasUsuarios(char archivoUsuarios[], char arc
     return lista;
 }
 
-nodoListaUsuario *buscarUsuarioPorEmail(nodoListaUsuario *lista, char correo[30])
+// --- RESERVAR PUBLICACIONES --- //
+void copiaDeDatos(datosCadaPublicacion *destino, datosCadaPublicacion origen)
 {
-    nodoListaUsuario *seg = lista;
-    nodoListaUsuario *usuarioEncontrado = NULL;
+    strcpy(destino->datosAutor.nombreYapellido, origen.datosAutor.nombreYapellido);
+    strcpy(destino->datosAutor.nacionalidad, origen.datosAutor.nacionalidad);
+    strcpy(destino->datosAutor.biografia, origen.datosAutor.biografia);
+    strcpy(destino->datosPublicacion.titulo, origen.datosPublicacion.titulo);
+    strcpy(destino->datosPublicacion.genero, origen.datosPublicacion.genero);
+    destino->datosPublicacion.dia = origen.datosPublicacion.dia;
+    destino->datosPublicacion.mes = origen.datosPublicacion.mes;
+    destino->datosPublicacion.anio = origen.datosPublicacion.anio;
+    strcpy(destino->datosPublicacion.descripcion, origen.datosPublicacion.descripcion);
+    strcpy(destino->palabraClave1, origen.palabraClave1);
+    strcpy(destino->palabraClave2, origen.palabraClave2);
+    strcpy(destino->fuente, origen.fuente);
+    destino->prestado = origen.prestado;
+    destino->opiniones = origen.opiniones;
+    destino->cantVecesLeida = origen.cantVecesLeida;
+}
 
-    int flag = 0;
+int reservarPublicacion(lista_de_listas *listaPublicaciones, char publicacionAReservar[], char genPublicacionAReservar[], datosCadaPublicacion *publicacionEncontrada)
+{
+    int rta = 0;
+    lista_de_listas *genEncontrado = buscarNodoGenero(listaPublicaciones, genPublicacionAReservar);
 
-    while ((seg != NULL) && (flag == 0))
+    if (genEncontrado != NULL)
     {
-        if (strcmp(seg->datosLogin.mail, correo) == 0)
-        {
-            usuarioEncontrado = seg;
-            flag = 1;
-        }
-
-        seg = seg->sig;
+        genEncontrado->listaDatosPublicaciones = buscarNodoTitulo(genEncontrado->listaDatosPublicaciones, publicacionAReservar);
+        copiaDeDatos(publicacionEncontrada, genEncontrado->listaDatosPublicaciones->miRegistro);
+        rta = 1;
     }
 
-    return usuarioEncontrado;
+    return rta;
+}
+
+// --- OBTENER RECOMENDACIONES --- //
+void obtenerRecomendaciones(lista_de_listas *listaPublicaciones, char generoPreferido[])
+{
+    lista_de_listas *seg = listaPublicaciones;
+
+    while (seg != NULL)
+    {
+        nodo_sublista_simple *nodoActual = seg->listaDatosPublicaciones;
+
+        while (nodoActual != NULL)
+        {
+            // Verificar si la publicacion coincide con las preferencias del usuario
+            if (strcmpi(nodoActual->miRegistro.datosPublicacion.genero, generoPreferido) == 0)
+            {
+                // Mostrar la publicacion como recomendacion
+                // printf("Recomendacion: %s\n", nodoActual->miRegistro.datosPublicacion.titulo);
+                mostrarUnaPublicacion(nodoActual->miRegistro);
+            }
+
+            nodoActual = nodoActual->siguiente;
+        }
+
+        seg = seg->siguiente;
+    }
 }
 
 // --- LISTA DE USUARIOS (CON HISTORIAL) --- //
-void imprimirHistorialDeUnUsuario(datosCadaPublicacion dato)
+void mostrarHistorialDeUnUsuario(nodoHistorial *lista, char nombreUsuario[])
 {
-    printf("\n ------------------------------- \n");
-    printf("- Titulo: %s", dato.datosPublicacion.titulo);
-    printf("- Genero: %s", dato.datosPublicacion.genero);
-    printf("- Fecha ingresada (con barras): %02d/%02d/%04d\n\n", dato.datosPublicacion.dia, dato.datosPublicacion.mes, dato.datosPublicacion.anio);
-    printf("- Descripcion: %s \n\n", dato.datosPublicacion.descripcion);
-    printf("- Nombre completo del autor: %s", dato.datosAutor.nombreYapellido);
-    printf("- Nacionalidad: %s \n", dato.datosAutor.nacionalidad);
-    printf("- Biografia: %s \n\n", dato.datosAutor.biografia);
-    printf("- Primer palabra clave: %s", dato.palabraClave1);
-    printf("- Primer palabra clave: %s", dato.palabraClave2);
-    printf("- Prestado (1 = si | 0 = no): %d \n", dato.prestado);
-    printf("- Fuente de informacion: %s \n", dato.fuente);
-    printf("- Veces leidas: %d", dato.cantVecesLeida);
-    printf("\n ------------------------------- \n");
-}
+    nodoHistorial *nodoActual = lista;
 
-void mostrarHistorialDeUnUsuario(nodoHistorial *lista)
-{
-    nodoHistorial *seg = lista;
+    printf("  " ROJO_F "\n Historial de %s: \n" RESET_COLOR, nombreUsuario);
 
-    if (seg != NULL)
+    while (nodoActual != NULL)
     {
-        while (seg != NULL)
-        {
-            imprimirHistorialDeUnUsuario(seg->dato);
-            seg = seg->sig;
-        }
+        mostrarUnaPublicacion(nodoActual->dato);
+        nodoActual = nodoActual->sig;
     }
-    else
-    {
-        printf("El usuario aun no ha a%cadido publicaciones a su historial.\n", 164);
-    }
+
+    printf(" Fin del historial.\n\n");
 }
 
 void mostrarListaDeUsuarios(nodoListaUsuario *lista)
@@ -231,18 +284,7 @@ void mostrarListaDeUsuarios(nodoListaUsuario *lista)
     while (seg != NULL)
     {
         mostrarUnUsuario(seg->datosLogin);
-        nodoHistorial *segAux = seg->listaHistorial;
-
-        if (segAux == NULL)
-        {
-            printf("Historial de %s:\n", seg->datosLogin.nombreCompleto);
-            printf("No se ha a%cadido ninguna publicacion. \n", 164);
-        }
-        else
-        {
-            printf("Historial de %s: ", seg->datosLogin.nombreCompleto);
-            mostrarHistorialDeUnUsuario(segAux);
-        }
+        mostrarHistorialDeUnUsuario(seg->listaHistorial, seg->datosLogin.nombreCompleto); // Mostrar historial solo una vez
 
         seg = seg->sig;
     }

@@ -12,18 +12,17 @@
 #include "arboles.h"
 #include "menuPrincipal.h"
 
-int main()
+void main()
 {
     // Constantes para los archivos
-    char archivoRegistros[20] = "Registros.bin";
     char archivoUsuarios[20] = "Usuarios.bin";
+    char archivoRegistros[20] = "Registros.bin";
+    char archivoAutores[20] = "Autores.bin";
 
     animacionCargando();
     // logos();
     // logo6();
     system("pause");
     system("cls");
-    menuPrincipal(archivoUsuarios, archivoRegistros);
-
-    return 0;
+    menuPrincipal(archivoUsuarios, archivoRegistros, archivoAutores);
 }
